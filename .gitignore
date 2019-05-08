@@ -1,0 +1,4 @@
+
+*.pyproj
+*.pyc
+__pycache__
