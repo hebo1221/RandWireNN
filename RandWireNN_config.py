@@ -15,6 +15,8 @@ __C.TRAIN.BATCH_SIZE = 128
 __C.TRAIN.LR_SCHEDULER = "cosine_lr"
 __C.TRAIN.WEIGHT_DECAY = 5e-5
 
+
+__C.NN = edict()
 # Learning parameters
 __C.NN.L2_REG_WEIGHT = 0.0005
 __C.NN.MOMENTUM_PER_MB = 0.9
@@ -63,8 +65,6 @@ __C.DRAW_NEGATIVE_ROIS = False
 __C.DRAW_UNREGRESSED_ROIS = False
 # only for plotting results: boxes with a score lower than this threshold will be considered background
 __C.RESULTS_BGR_PLOT_THRESHOLD = 0.1
-
-
 
 
 #

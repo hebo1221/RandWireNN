@@ -2,3 +2,4 @@
 *.pyproj
 *.pyc
 __pycache__
+output

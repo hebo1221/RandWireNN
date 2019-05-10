@@ -1,4 +1,4 @@
-# RandWireNN
+# RandWireNN(WORK IN PROGRESS)
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for) ![Datasets](https://img.shields.io/badge/Dataset-CIFAR--100-green.svg)
 

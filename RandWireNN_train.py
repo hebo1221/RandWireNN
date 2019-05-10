@@ -1,3 +1,24 @@
+import torch
+import torch.nn as nn
+import torch.optim as optim
+
+from torch.utils.data import DataLoader
+from utils.network import CNN
+
+import time
+
+import torchvision.transforms as transforms
+from torchvision import datasets
+
+
+from CVdevKit.dataset.imagenet_dataset import ColorAugmentation, ImagenetDataset
+
+import numpy as np
+import os, sys
+import argparse
+import easydict # pip install easydict
+abs_path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.join(abs_path, ".."))
 
 def train(train_loader, model, criterion, optimizer, epoch):
     print_freq = 100
@@ -51,3 +72,43 @@ def train(train_loader, model, criterion, optimizer, epoch):
 
         if i%1000 == 0:
             torch.save(model.state_dict(), './output/model/%03d_%06d.cpt' % (epoch, int(i)))
+
+    
+class AverageMeter(object):
+    """Computes and stores the average and current value"""
+
+    def __init__(self):
+        self.reset()
+
+    def reset(self):
+        self.val = 0
+        self.avg = 0
+        self.sum = 0
+        self.count = 0
+
+    def update(self, val, n=1):
+        self.val = val
+        self.sum += val * n
+        self.count += n
+        self.avg = self.sum / self.count
+
+def accuracy(output, target, topk=(1,)):
+    """Computes the precision@k for the specified values of k"""
+    maxk = max(topk)
+    batch_size = target.size(0)
+
+    _, pred = output.topk(maxk, 1, True, True)
+    pred = pred.t()
+    correct = pred.eq(target.view(1, -1).expand_as(pred))
+
+    res = []
+    for k in topk:
+        correct_k = correct[:k].view(-1).float().sum(0, keepdim=True)
+        res.append(correct_k.mul_(100.0 / batch_size))
+    return res
+
+
+def prepare(cfg, use_arg_parser=True):
+    cfg.MB_SIZE = 1
+    cfg.NUM_CHANNELS = 3
+    cfg.OUTPUT_PATH = os.path.join(abs_path, "Output")
