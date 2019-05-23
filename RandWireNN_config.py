@@ -4,11 +4,37 @@ from easydict import EasyDict as edict
 __C = edict()
 cfg = __C
 
-#
-# Training parameters
-#
+# optimizer
+__C.LEARNING_RATE = 0.005
+__C.MOMENTUM = 0.9
+__C.WEIGHT_DECAY = 0.00005
+
+
+
+
+# Enable tensorbordx
+__C.TENSORBOARDX = False
+
+__C.USE_CUDA = True
+
+# Use CNN instead of RandWireNN
+__C.USE_SIMPLE_CNN = False
+
+__C.USE_MULTI_GPU = False
+
+__C.OUTPUT_DIR = "./output/"
+
+
+__C.PRINT_FREQ = 10
+
 
 __C.TRAIN = edict()
+
+__C.MAKE_GRAPH_MODE = True
+
+# set to 'True' to run only a single epoch
+__C.FAST_MODE = False
+
 
 __C.TRAIN.EPOCHS = 100
 __C.TRAIN.BATCH_SIZE = 128
@@ -16,7 +42,13 @@ __C.TRAIN.LR_SCHEDULER = "cosine_lr"
 __C.TRAIN.WEIGHT_DECAY = 5e-5
 
 
+#
+# network parameters
+#
+
 __C.NN = edict()
+
+
 # Learning parameters
 __C.NN.L2_REG_WEIGHT = 0.0005
 __C.NN.MOMENTUM_PER_MB = 0.9
@@ -38,17 +70,8 @@ __C.TEST.RPN_POST_NMS_TOP_N = 300
 __C.TEST.RPN_MIN_SIZE = 16
 
 
-#
-# network parameters
-#
-
-__C.NN = edict()
 
 
-# If set to 'True' training will be skipped if a trained model exists already
-__C.NN.MAKE_MODE = True
-# set to 'True' to run only a single epoch
-__C.NN.FAST_MODE = False
 # Debug parameters
 __C.NN.DEBUG_OUTPUT = False
 __C.NN.GRAPH_TYPE = "png" # "png" or "pdf"
@@ -59,8 +82,6 @@ __C.NN.BIAS_LR_MULT = 2.0
 
 
 
-# Enable plotting of results generally / also plot background boxes / also plot unregressed boxes
-__C.VISUALIZE_RESULTS = False
 __C.DRAW_NEGATIVE_ROIS = False
 __C.DRAW_UNREGRESSED_ROIS = False
 # only for plotting results: boxes with a score lower than this threshold will be considered background
@@ -73,9 +94,6 @@ __C.RESULTS_BGR_PLOT_THRESHOLD = 0.1
 
 # For reproducibility
 __C.RND_SEED = 3
-
-# Use GPU implementation of non-maximum suppression
-__C.USE_GPU_NMS = False
 
 # Default GPU device id
 __C.GPU_ID = 0

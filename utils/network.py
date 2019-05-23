@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 from utils.graph import build_graph, get_graph_info, save_graph, load_graph
 import math
-
+import torch.nn.functional as F
 
 class conv_unit(nn.Module):
   def __init__(self, nin, nout, stride):
@@ -17,7 +17,6 @@ class conv_unit(nn.Module):
     out = self.depthwise_separable_conv_3x3(x)
     out = self.pointwise_conv_1x1(out)
     return out
-
 
 class Triplet_unit(nn.Module):
   def __init__(self, inplanes, outplanes, stride=1):
@@ -31,7 +30,6 @@ class Triplet_unit(nn.Module):
     out = self.conv(out)
     out = self.bn(out)
     return out
-
 
 class Node_OP(nn.Module):
   def __init__(self, Node, inplanes, outplanes):
@@ -56,7 +54,6 @@ class Node_OP(nn.Module):
     out = self.conv(out)
     return out
 
-
 class StageBlock(nn.Module):
   def __init__(self, graph, inplanes, outplanes):
     super(StageBlock, self).__init__()
@@ -79,19 +76,46 @@ class StageBlock(nn.Module):
     result = result / len(self.output_nodes)
     return result
 
-
 class CNN(nn.Module):
-  def __init__(self, nodes, channels, num_classes=1000):
-    super(CNN, self).__init__()
+    img_size = 0
+    def __init__(self, cfg):
+        super(CNN, self).__init__()
+        color = cfg.NN.COLOR
+        nodes = cfg.NN.NODES
+        channels = cfg.NN.CHANNELS
+        num_classes = cfg.NN.NUM_CLASSES
+        img_size = cfg.NN.IMG_SIZE
+        
+        self.conv1 = nn.Conv2d(color, 6, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(6, 16, 5)
+        self.img_size = int((((img_size-4)/2)-4)/2)**2
+        self.fc1 = nn.Linear(16 * self.img_size , channels*2)
+        self.fc2 = nn.Linear(channels*2, channels)
+        self.fc3 = nn.Linear(channels, num_classes)
 
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = x.view(-1, 16 * self.img_size)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+class Net(nn.Module):
+  def __init__(self, cfg):
+    super(Net, self).__init__()
+    nodes = cfg.NN.NODES
+    channels = cfg.NN.CHANNELS
+    num_classes = cfg.NN.NUM_CLASSES
+    seed = 0
+    
     self.conv1 =  nn.Sequential(
         conv_unit(3, channels // 2 , 2),
         nn.BatchNorm2d(channels // 2)
         )
-
     self.conv2 = Triplet_unit(channels // 2, channels, 2)
-    
-    seed = 0
     
     graph = load_graph('./output/graph/conv3.yaml')
     #graph = build_graph(nodes, 'WS', seed, 4, 0.75)
