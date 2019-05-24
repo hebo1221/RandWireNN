@@ -40,7 +40,7 @@ if __name__ == '__main__':
     val_loader = val_data_loader(cfg)
 
     print("train")
-    for epoch in range(cfg.EPOCH):
-        train(train_loader, model, criterion, optimizer, epoch, cfg)
+    #for epoch in range(cfg.EPOCH):
+        #train(train_loader, model, criterion, optimizer, epoch, cfg)
     
     validate(val_loader, model, criterion, cfg)

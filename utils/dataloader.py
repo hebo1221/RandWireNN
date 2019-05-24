@@ -43,7 +43,7 @@ def train_data_loader(cfg):
 
 def val_data_loader(cfg):    
     tf = transforms.Compose(
-    [transforms.Resize(32),
+    [transforms.Resize(64),
      transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     tf_imagenet = transforms.Compose([

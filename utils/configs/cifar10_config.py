@@ -24,8 +24,8 @@ __C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR10_012_00.cpt"
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 8
-__C.EPOCH = 1
+__C.BATCH_SIZE = 700
+__C.EPOCH = 250
 
 #
 # Network parameters
