@@ -18,7 +18,7 @@ __C.TRAIN_ROOT = "G:/dataset/"
 __C.VAL_ROOT = "G:/dataset/"
 
 # If set to 'True' training will use trained model
-__C.LOAD_TRAINED_MODEL = True
+__C.LOAD_TRAINED_MODEL = False
 __C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR100_012_00.cpt"
 
 #
