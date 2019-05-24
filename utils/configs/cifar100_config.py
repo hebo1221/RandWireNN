@@ -10,28 +10,35 @@ import os
 __C = edict()
 cfg = __C
 
-__C.BATCH_SIZE = 8
-__C.EPOCH = 1
-
-# data set config
+# Data set config
 
 __C.DATASET_NAME = "CIFAR100"
 __C.DOWNLOAD = True
-__C.DATSET_ROOT = "G:/dataset/"
 __C.TRAIN_ROOT = "G:/dataset/"
-__C.VAL_ROOT = "D:/dataset/ILSVRC2012/ILSVRC2012_img_test/"
+__C.VAL_ROOT = "G:/dataset/"
 
-__C.MODEL_LOAD = True
-__C.MODEL_LOAD_DIR = "./output/model/074_000000.cpt"
+# If set to 'True' training will use trained model
+__C.LOAD_TRAINED_MODEL = True
+__C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR100_012_00.cpt"
 
+#
+# Training parameters
+#
+__C.BATCH_SIZE = 700
+__C.EPOCH = 100
+
+#
+# Network parameters
+#
 __C.NN = edict()
 
+__C.NN.REGIME = "SMALL"
+
+# for image color scale
 __C.NN.COLOR = 3
+# 32x32 images
 __C.NN.IMG_SIZE = 32
+# Random graph node
 __C.NN.NODES = 32
-__C.NN.CHANNELS = 84
+__C.NN.CHANNELS = 78
 __C.NN.NUM_CLASSES = 100
-
-
-# If set to 'True' training will be skipped if a trained model exists already
-__C.MAKE_MODE = False

@@ -50,8 +50,8 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         if i % cfg.PRINT_FREQ == 0:
             progress.print(i)
 
-        if i == 0:
-            torch.save(model.state_dict(), './output/model/%03d_%06d.cpt' % (epoch, int(i)))
+        if i % cfg.SAVE_FREQ == 0:
+            torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
 
 def validate(val_loader, model, criterion, cfg):
     batch_time = AverageMeter('Time', ':6.3f')

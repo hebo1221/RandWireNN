@@ -21,13 +21,13 @@ def get_graph_info(graph):
     Nodes.append(Node(node, [n for n in tmp if n < node], type))
   return Nodes, input_nodes, output_nodes
 
-def build_graph(Nodes, model, seed, arg1, arg2=0 ):
-  if model == 'ER':
-    return nx.random_graphs.erdos_renyi_graph(Nodes, arg1, seed)
-  elif model == 'BA':
-    return nx.random_graphs.barabasi_albert_graph(Nodes, arg1, seed)
-  elif model == 'WS':
-    return nx.random_graphs.connected_watts_strogatz_graph(Nodes, arg1, arg2, tries=200, seed=seed)
+def build_graph(Nodes, cfg ):
+  if cfg.GRAPH_MODEL == 'ER':
+    return nx.random_graphs.erdos_renyi_graph(Nodes, cfg.ER.P, cfg.RND_SEED)
+  elif cfg.GRAPH_MODEL == 'BA':
+    return nx.random_graphs.barabasi_albert_graph(Nodes, cfg.BA.M,cfg.RND_SEED)
+  elif cfg.GRAPH_MODEL == 'WS':
+    return nx.random_graphs.connected_watts_strogatz_graph(Nodes, cfg.WS.K, cfg.WS.P, tries=200, seed=cfg.RND_SEED)
 
 def save_graph(graph, path):
   nx.write_yaml(graph, path)

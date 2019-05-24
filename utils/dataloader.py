@@ -9,10 +9,16 @@ from torchvision.datasets.utils import check_integrity, download_url
 
 
 def train_data_loader(cfg):    
-    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     tf = transforms.Compose(
-    [transforms.ToTensor(),
+    [transforms.Resize(64),
+     transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    tf_imagenet = transforms.Compose([
+                transforms.RandomResizedCrop(224),
+                transforms.RandomHorizontalFlip(),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
 
     if cfg.DATASET_NAME == "MNIST":
         data = datasets.MNIST(cfg.TRAIN_ROOT,train=True, download=cfg.DOWNLOAD,transform=transforms.ToTensor())
@@ -32,52 +38,40 @@ def train_data_loader(cfg):
 
     elif cfg.DATASET_NAME == "YourDataSet":
         return DataLoader(
-            datasets.ImageFolder(cfg.TRAIN_ROOT, transforms.Compose([
+            datasets.ImageFolder(cfg.TRAIN_ROOT, transform=tf), cfg.BATCH_SIZE, 
+            shuffle=True, pin_memory=True, drop_last=True)
+
+def val_data_loader(cfg):    
+    tf = transforms.Compose(
+    [transforms.Resize(32),
+     transforms.ToTensor(),
+     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+    tf_imagenet = transforms.Compose([
                 transforms.RandomResizedCrop(224),
                 transforms.RandomHorizontalFlip(),
                 transforms.ToTensor(),
-                normalize,
-            ])),
-            cfg.BATCH_SIZE, 
-            shuffle=True, pin_memory=True, drop_last=True)
-
-def test_data_loader(cfg):    
-    normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-    tf = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    tf2 = transforms.Compose([
-                    transforms.RandomResizedCrop(224),
-                    transforms.RandomHorizontalFlip(),
-                    transforms.ToTensor(),
-                    normalize,
-                ])
-
+                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+            ])
+    
     if cfg.DATASET_NAME == "MNIST":
-        data = datasets.MNIST(cfg.TRAIN_ROOT,train=False, download=cfg.DOWNLOAD, transform=transforms.ToTensor())
+        data = datasets.MNIST(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD, transform=transforms.ToTensor())
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False)
 
     elif cfg.DATASET_NAME == "CIFAR10":
-        data = datasets.CIFAR10(cfg.TRAIN_ROOT,train=False, download=cfg.DOWNLOAD, transform=tf)
+        data = datasets.CIFAR10(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD, transform=tf)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False)
 
     elif cfg.DATASET_NAME == "CIFAR100":
-        data =  datasets.CIFAR100(cfg.TRAIN_ROOT,train=False, download=cfg.DOWNLOAD,  transform=tf)
+        data =  datasets.CIFAR100(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD,  transform=tf)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False, pin_memory=True, drop_last=True)
 
     elif cfg.DATASET_NAME == "ImageNet":
-        data = ImageNet(cfg.TRAIN_ROOT,split='val', download=cfg.DOWNLOAD, transform=tf2)
+        data = ImageNet(cfg.VAL_ROOT,split='val', download=cfg.DOWNLOAD, transform=tf_imagenet)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False, pin_memory=True, drop_last=True)
 
     elif cfg.DATASET_NAME == "YourDataSet":
         return DataLoader(
-            datasets.ImageFolder(cfg.TRAIN_ROOT, transforms.Compose([
-                transforms.RandomResizedCrop(224),
-                transforms.RandomHorizontalFlip(),
-                transforms.ToTensor(),
-                normalize,
-            ])),
-            cfg.BATCH_SIZE, 
+            datasets.ImageFolder(cfg.VAL_ROOT, transform=tf), cfg.BATCH_SIZE, 
             shuffle=True, pin_memory=True, drop_last=True)
 
 ARCHIVE_DICT = {
