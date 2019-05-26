@@ -157,4 +157,9 @@ def accuracy(output, target, topk=(1,)):
         return res
 
 def prepare(cfg, use_arg_parser=True):
-    cfg.OUTPUT_PATH = os.path.join(abs_path, "Output")
+    if not os.path.isdir("./output/"):
+	    os.mkdir("./output/")
+    if not os.path.isdir("./output/model"):
+	    os.mkdir("./output/model")
+    if not os.path.isdir("./output/graph"):
+	    os.mkdir("./output/graph")

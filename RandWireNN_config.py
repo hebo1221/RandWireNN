@@ -10,8 +10,16 @@ __C.USE_SIMPLE_CNN = False
 # Use cuda
 __C.USE_CUDA = True
 
+# Test mode
+__C.TEST_MODE = False
+
 # model config
 __C.GRAPH_MODEL = "WS"
+
+# dataset directory
+__C.DATASET_DIR = "G:/dataset/"
+if not os.path.isdir(__C.DATASET_DIR):
+	os.mkdir(__C.DATASET_DIR)
 
 # Erdos-Renyi  model
 __C.ER = edict()
@@ -33,7 +41,6 @@ __C.WEIGHT_DECAY = 0.00005
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
 __C.MAKE_GRAPH = False
-
 
 
 

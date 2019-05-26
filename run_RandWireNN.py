@@ -8,7 +8,7 @@ def get_configuration():
     # load configs for base network and data set
     from RandWireNN_config import cfg as network_cfg
 
-    from utils.configs.cifar100_config import cfg as dataset_cfg
+    from utils.configs.mnist_config import cfg as dataset_cfg
     # for the CIFAR10 data set use:     from utils.configs.cifar10 import cfg as dataset_cfg
     # for the ImageNet data set use:    from utils.configs.ImageNet_config import cfg as dataset_cfg
     
@@ -40,7 +40,8 @@ if __name__ == '__main__':
     val_loader = val_data_loader(cfg)
 
     print("train")
-    #for epoch in range(cfg.EPOCH):
-        #train(train_loader, model, criterion, optimizer, epoch, cfg)
+    if cfg.TEST_MODE==False:
+        for epoch in range(cfg.EPOCH):
+            train(train_loader, model, criterion, optimizer, epoch, cfg)
     
     validate(val_loader, model, criterion, cfg)

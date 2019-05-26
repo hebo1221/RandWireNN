@@ -1,7 +1,7 @@
 # RandWireNN
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for) 
-![Datasets](https://img.shields.io/badge/Dataset-MNIST-lightgray.svg)![Datasets](https://img.shields.io/badge/Dataset-CIFAR--10,100-green.svg)![Datasets](https://img.shields.io/badge/Dataset-ImageNet--12-yellow.svg)
+[Datasets](https://img.shields.io/badge/Dataset-MNIST-lightgray.svg)![Datasets](https://img.shields.io/badge/Dataset-CIFAR--10,100-green.svg)![Datasets](https://img.shields.io/badge/Dataset-ImageNet--12-yellow.svg)
 
 ## Results
 
@@ -9,9 +9,9 @@ In small regime, C=78, WS(4,0.75)
 
 | datasets    | top-1 acc. | top-5 acc. | epoch |
 | ----------- | ---------- | ---------- | ----- |
-| MNIST       | 97.81      | 99.88      | 1     |
-| CIFAR-10    | 55.14      | 94.81      | 1     |
-| CIFAR-100   | 22.55      | 48.73      | 65    | 
+| MNIST       | 99.34      | 100.       | 9     |
+| CIFAR-10    | 73.79      | 97.66      | 250   |
+| CIFAR-100   | 34.81      | 62.46      | 250   | 
 | ImageNet-12 | 56.70      | 78.95      | 81    |
 
 In regular regime, C=109, WS(4,0.75)

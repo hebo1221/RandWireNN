@@ -14,11 +14,9 @@ cfg = __C
 
 __C.DATASET_NAME = "CIFAR100"
 __C.DOWNLOAD = True
-__C.TRAIN_ROOT = "G:/dataset/"
-__C.VAL_ROOT = "G:/dataset/"
 
 # If set to 'True' training will use trained model
-__C.LOAD_TRAINED_MODEL = True
+__C.LOAD_TRAINED_MODEL = False
 __C.TRAINED_MODEL_LOAD_DIR = "./output/model/081_007000.cpt"
 
 #

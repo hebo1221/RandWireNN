@@ -9,7 +9,10 @@ from torchvision.datasets.utils import check_integrity, download_url
 
 
 def train_data_loader(cfg):    
-    tf = transforms.Compose(
+    tf_mnist = transforms.Compose(
+    [transforms.Resize(64),
+     transforms.ToTensor()])
+    tf_cifar = transforms.Compose(
     [transforms.Resize(64),
      transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -21,28 +24,31 @@ def train_data_loader(cfg):
             ])
 
     if cfg.DATASET_NAME == "MNIST":
-        data = datasets.MNIST(cfg.TRAIN_ROOT,train=True, download=cfg.DOWNLOAD,transform=transforms.ToTensor())
+        data = datasets.MNIST(cfg.DATASET_DIR,train=True, download=cfg.DOWNLOAD,transform=tf_mnist)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=True)
 
     elif cfg.DATASET_NAME == "CIFAR10":
-        data = datasets.CIFAR10(cfg.TRAIN_ROOT,train=True, download=cfg.DOWNLOAD, transform=tf)
+        data = datasets.CIFAR10(cfg.DATASET_DIR,train=True, download=cfg.DOWNLOAD, transform=tf_cifar)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=True)
 
     elif cfg.DATASET_NAME == "CIFAR100":
-        data =  datasets.CIFAR100(cfg.TRAIN_ROOT,train=True, download=cfg.DOWNLOAD,  transform=tf)
+        data =  datasets.CIFAR100(cfg.DATASET_DIR,train=True, download=cfg.DOWNLOAD,  transform=tf_cifar)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=True, pin_memory=True, drop_last=True)
     
     elif cfg.DATASET_NAME == "ImageNet":
-        data = ImageNet(cfg.TRAIN_ROOT,split='train', download=cfg.DOWNLOAD, transform=tf)
+        data = ImageNet(cfg.DATASET_DIR,split='train', download=cfg.DOWNLOAD, transform=tf_imagenet)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=True, pin_memory=True, drop_last=True)
 
     elif cfg.DATASET_NAME == "YourDataSet":
         return DataLoader(
-            datasets.ImageFolder(cfg.TRAIN_ROOT, transform=tf), cfg.BATCH_SIZE, 
+            datasets.ImageFolder(cfg.DATASET_DIR, transform=tf), cfg.BATCH_SIZE, 
             shuffle=True, pin_memory=True, drop_last=True)
 
 def val_data_loader(cfg):    
-    tf = transforms.Compose(
+    tf_mnist = transforms.Compose(
+    [transforms.Resize(64),
+     transforms.ToTensor()])
+    tf_cifar = transforms.Compose(
     [transforms.Resize(64),
      transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -54,24 +60,24 @@ def val_data_loader(cfg):
             ])
     
     if cfg.DATASET_NAME == "MNIST":
-        data = datasets.MNIST(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD, transform=transforms.ToTensor())
+        data = datasets.MNIST(cfg.DATASET_DIR,train=False, download=cfg.DOWNLOAD, transform=tf_mnist)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False)
 
     elif cfg.DATASET_NAME == "CIFAR10":
-        data = datasets.CIFAR10(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD, transform=tf)
+        data = datasets.CIFAR10(cfg.DATASET_DIR,train=False, download=cfg.DOWNLOAD, transform=tf_cifar)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False)
 
     elif cfg.DATASET_NAME == "CIFAR100":
-        data =  datasets.CIFAR100(cfg.VAL_ROOT,train=False, download=cfg.DOWNLOAD,  transform=tf)
+        data =  datasets.CIFAR100(cfg.DATASET_DIR,train=False, download=cfg.DOWNLOAD,  transform=tf_cifar)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False, pin_memory=True, drop_last=True)
 
     elif cfg.DATASET_NAME == "ImageNet":
-        data = ImageNet(cfg.VAL_ROOT,split='val', download=cfg.DOWNLOAD, transform=tf_imagenet)
+        data = ImageNet(cfg.DATASET_DIR,split='val', download=cfg.DOWNLOAD, transform=tf_imagenet)
         return DataLoader(data, cfg.BATCH_SIZE, shuffle=False, pin_memory=True, drop_last=True)
 
     elif cfg.DATASET_NAME == "YourDataSet":
         return DataLoader(
-            datasets.ImageFolder(cfg.VAL_ROOT, transform=tf), cfg.BATCH_SIZE, 
+            datasets.ImageFolder(cfg.DATASET_DIR, transform=tf), cfg.BATCH_SIZE, 
             shuffle=True, pin_memory=True, drop_last=True)
 
 ARCHIVE_DICT = {

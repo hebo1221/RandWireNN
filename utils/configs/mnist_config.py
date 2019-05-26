@@ -14,18 +14,16 @@ cfg = __C
 
 __C.DATASET_NAME = "MNIST"
 __C.DOWNLOAD = True
-__C.TRAIN_ROOT = "G:/dataset/"
-__C.VAL_ROOT = "G:/dataset/"
 
 # If set to 'True' training will use trained model
 __C.LOAD_TRAINED_MODEL = False
-__C.TRAINED_MODEL_LOAD_DIR = "./output/model/MNIST_012_00.cpt"
+__C.TRAINED_MODEL_LOAD_DIR = "./output/model/MNIST_009_00.cpt"
 
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 8
-__C.EPOCH = 1
+__C.BATCH_SIZE = 128
+__C.EPOCH = 10
 
 #
 # Network parameters
