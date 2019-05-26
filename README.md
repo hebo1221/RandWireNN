@@ -41,6 +41,7 @@ To train and evaluate run
 
 `python run_RandWireNN.py`
 
+- set your dataset directory in RandWireNN_config.py, _C.DATASET_DIR
 - If you want to change dataset, see run_RandWireNN.get_configuration()
 - You don't have to prepare a dataset. The code will automatically download.
 - You can change the hyperparameters from _config.py

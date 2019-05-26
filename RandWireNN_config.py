@@ -7,7 +7,7 @@ cfg = __C
 # Use CNN instead of RandWireNN
 __C.USE_SIMPLE_CNN = False
 
-# Use cuda
+# Use GPU
 __C.USE_CUDA = True
 
 # Test mode
@@ -17,7 +17,7 @@ __C.TEST_MODE = False
 __C.GRAPH_MODEL = "WS"
 
 # dataset directory
-__C.DATASET_DIR = "G:/dataset/"
+__C.DATASET_DIR = "C:/dataset/"
 if not os.path.isdir(__C.DATASET_DIR):
 	os.mkdir(__C.DATASET_DIR)
 
@@ -40,7 +40,7 @@ __C.WEIGHT_DECAY = 0.00005
 # Debug parameters
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
-__C.MAKE_GRAPH = False
+__C.MAKE_GRAPH = True
 
 
 
