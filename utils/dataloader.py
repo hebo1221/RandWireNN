@@ -80,6 +80,7 @@ def val_data_loader(cfg):
             datasets.ImageFolder(cfg.DATASET_DIR, transform=tf), cfg.BATCH_SIZE, 
             shuffle=True, pin_memory=True, drop_last=True)
 
+
 ARCHIVE_DICT = {
     'train': {
         'url': 'http://www.image-net.org/challenges/LSVRC/2012/nnoupb/ILSVRC2012_img_train.tar',

@@ -75,34 +75,7 @@ class StageBlock(nn.Module):
                 result = result + results[id]
         result = result / len(self.output_nodes)
         return result
-
-class CNN(nn.Module):
-    def __init__(self, cfg):
-        super(CNN, self).__init__()
-        # for image color scale
-        color = cfg.NN.COLOR
-        C = cfg.NN.CHANNELS
-        num_classes = cfg.NN.NUM_CLASSES
-        size = cfg.NN.IMG_SIZE
-        
-        self.conv1 = nn.Conv2d(color, 6, 3, padding = 1)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 3, padding = 1)
-        self.conv3 = nn.Conv2d(16, 32, 3, padding = 1)
-        self.fc1 = nn.Linear(16*size, 2*C)
-        self.fc2 = nn.Linear(2*C, C)
-        self.fc3 = nn.Linear(C, num_classes)
-
-    def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = self.pool(F.relu(self.conv3(x)))
-        x = x.view(x.size(0), -1)
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = self.fc3(x)
-        return x
-
+    
 class Net(nn.Module):
     def __init__(self, cfg):
         super(Net, self).__init__()

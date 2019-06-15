@@ -1,7 +1,7 @@
 # RandWireNN
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for) 
-[Datasets](https://img.shields.io/badge/Dataset-MNIST-lightgray.svg)![Datasets](https://img.shields.io/badge/Dataset-CIFAR--10,100-green.svg)![Datasets](https://img.shields.io/badge/Dataset-ImageNet--12-yellow.svg)
+![Datasets](https://img.shields.io/badge/Dataset-MNIST-lightgray.svg)![Datasets](https://img.shields.io/badge/Dataset-CIFAR--10,100-green.svg)![Datasets](https://img.shields.io/badge/Dataset-ImageNet--12-yellow.svg)
 
 ## Results
 
@@ -40,7 +40,6 @@ pip install -r requirements.txt
 To train and evaluate run
 
 `python run_RandWireNN.py`
-
 - set your dataset directory in RandWireNN_config.py, _C.DATASET_DIR
 - If you want to change dataset, see run_RandWireNN.get_configuration()
 - You don't have to prepare a dataset. The code will automatically download.

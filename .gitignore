@@ -1,5 +1,6 @@
-
 *.pyproj
 *.pyc
+.gitignore
+.gitattributes
 __pycache__
 output

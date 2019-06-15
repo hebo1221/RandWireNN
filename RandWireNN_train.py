@@ -23,10 +23,8 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         # measure data loading time
         data_time.update(time.time() - end)
 
-        if cfg.USE_CUDA:
-            # input = input.cuda(args.gpu, non_blocking=True)
-            input = input.cuda()
-            target = target.cuda()
+        input = input.to(cfg.DEVICE)
+        target = target.to(cfg.DEVICE)
         
         # compute output
         output = model(input)
@@ -67,10 +65,9 @@ def validate(val_loader, model, criterion, cfg):
     with torch.no_grad():
         end = time.time()
         for i, (input, target) in enumerate(val_loader):
-            if cfg.USE_CUDA:
-                # input = input.cuda(args.gpu, non_blocking=True)
-                input = input.cuda()
-                target = target.cuda()
+            
+            input = input.to(cfg.DEVICE)
+            target = target.to(cfg.DEVICE)
 
             # compute output
             output = model(input)

@@ -1,14 +1,12 @@
 import os
+import torch
 from easydict import EasyDict as edict
 
 __C = edict()
 cfg = __C
 
-# Use CNN instead of RandWireNN
-__C.USE_SIMPLE_CNN = False
-
-# Use GPU
-__C.USE_CUDA = True
+# CPU or GPU
+__C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 # Test mode
 __C.TEST_MODE = False
@@ -18,8 +16,11 @@ __C.GRAPH_MODEL = "WS"
 
 # dataset directory
 __C.DATASET_DIR = "C:/dataset/"
+
 if not os.path.isdir(__C.DATASET_DIR):
-	os.mkdir(__C.DATASET_DIR)
+    # default dataset directory
+    __C.DATASET_DIR = "./dataset/"
+    os.mkdir(__C.DATASET_DIR)
 
 # Erdos-Renyi  model
 __C.ER = edict()
@@ -40,7 +41,7 @@ __C.WEIGHT_DECAY = 0.00005
 # Debug parameters
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
-__C.MAKE_GRAPH = True
+__C.MAKE_GRAPH = False
 
 
 
