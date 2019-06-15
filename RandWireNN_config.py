@@ -15,7 +15,7 @@ __C.TEST_MODE = False
 __C.GRAPH_MODEL = "WS"
 
 # dataset directory
-__C.DATASET_DIR = "C:/dataset/"
+__C.DATASET_DIR = "G:/dataset/"
 
 if not os.path.isdir(__C.DATASET_DIR):
     # default dataset directory
@@ -42,6 +42,9 @@ __C.WEIGHT_DECAY = 0.00005
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
 __C.MAKE_GRAPH = False
+
+if not os.path.isfile("./output/graph/conv2.yaml"):
+    __C.MAKE_GRAPH = True
 
 
 

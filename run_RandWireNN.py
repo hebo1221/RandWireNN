@@ -21,7 +21,8 @@ if __name__ == '__main__':
     model = Net(cfg)
     
     if torch.cuda.device_count() > 1:
-         model = nn.DataParallel(model)
+        print("Let's use", torch.cuda.device_count(), "GPUs!")
+        model = torch.nn.DataParallel(model)
     model.to(cfg.DEVICE)
 
     if cfg.LOAD_TRAINED_MODEL:
