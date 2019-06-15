@@ -20,7 +20,8 @@ __C.DATASET_DIR = "G:/dataset/"
 if not os.path.isdir(__C.DATASET_DIR):
     # default dataset directory
     __C.DATASET_DIR = "./dataset/"
-    os.mkdir(__C.DATASET_DIR)
+    if not os.path.isdir(__C.DATASET_DIR):
+        os.mkdir(__C.DATASET_DIR)
 
 # Erdos-Renyi  model
 __C.ER = edict()
@@ -34,9 +35,10 @@ __C.WS.K = 4
 __C.WS.P = 0.75
 
 # optimizer
-__C.LEARNING_RATE = 0.005
+__C.LEARNING_RATE = 0.01
 __C.MOMENTUM = 0.9
 __C.WEIGHT_DECAY = 0.00005
+__C.LR_SCHEDULER_STEP = 1
 
 # Debug parameters
 __C.PRINT_FREQ = 10
@@ -49,28 +51,19 @@ if not os.path.isfile("./output/graph/conv2.yaml"):
 
 
 
+
 # Unused
 
-__C.LR_SCHEDULER = "cosine_lr"
-__C.WEIGHT_DECAY = 5e-5
 
 # Enable plotting of generated random graph model
 __C.VISUALIZE_GRAPH = False
 
 # Enable tensorbordx
 __C.TENSORBOARDX = False
-__C.USE_MULTI_GPU = False
 
-# Learning parameters
-__C.L2_REG_WEIGHT = 0.0005
-__C.MOMENTUM_PER_MB = 0.9
 # Debug parameters
 __C.DEBUG_OUTPUT = False
 __C.GRAPH_TYPE = "png" # "png" or "pdf"
-
-# The learning rate multiplier for all bias weights
-__C.BIAS_LR_MULT = 2.0
-
 
 #
 # MISC

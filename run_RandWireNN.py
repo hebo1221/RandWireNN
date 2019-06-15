@@ -22,15 +22,16 @@ if __name__ == '__main__':
     
     if torch.cuda.device_count() > 1:
         print("Let's use", torch.cuda.device_count(), "GPUs!")
+        cfg.BATCH_SIZE *= torch.cuda.device_count()
         model = torch.nn.DataParallel(model)
     model.to(cfg.DEVICE)
 
     if cfg.LOAD_TRAINED_MODEL:
         model.load_state_dict(torch.load(cfg.TRAINED_MODEL_LOAD_DIR))
 
-    criterion = torch.nn.CrossEntropyLoss()
+    criterion = torch.nn.CrossEntropyLoss().to(cfg.DEVICE)
     optimizer = torch.optim.SGD(model.parameters(),cfg.LEARNING_RATE, cfg.MOMENTUM, cfg.WEIGHT_DECAY)
-    criterion.to(cfg.DEVICE)
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, cfg.LR_SCHEDULER_STEP)
 
     print("train_loader")
     train_loader = train_data_loader(cfg)
@@ -40,6 +41,7 @@ if __name__ == '__main__':
     print("train")
     if cfg.TEST_MODE==False:
         for epoch in range(cfg.EPOCH):
-            train(train_loader, model, criterion, optimizer, epoch, cfg)
+            train(train_loader, model, criterion, optimizer, epoch, cfg) 
+        scheduler.step()
     
     validate(val_loader, model, criterion, cfg)
