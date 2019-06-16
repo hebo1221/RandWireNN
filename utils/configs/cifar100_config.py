@@ -1,10 +1,3 @@
-# Copyright (c) Microsoft. All rights reserved.
-
-# Licensed under the MIT license. See LICENSE.md file in the project root
-# for full license information.
-# ==============================================================================
-
-# `pip install easydict` if you don't have it
 from easydict import EasyDict as edict
 import os
 __C = edict()
@@ -29,7 +22,6 @@ __C.EPOCH = 250
 # Network parameters
 #
 __C.NN = edict()
-
 __C.NN.REGIME = "SMALL"
 
 # for image color scale

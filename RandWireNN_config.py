@@ -16,7 +16,7 @@ __C.TEST_MODE = False
 __C.GRAPH_MODEL = "WS"
 
 # dataset directory
-__C.DATASET_DIR = "C:/dataset/"
+__C.DATASET_DIR = "G:/dataset/"
 
 if not os.path.isdir(__C.DATASET_DIR):
     # default dataset directory
@@ -45,9 +45,10 @@ __C.LR_SCHEDULER_STEP = 1
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
 __C.MAKE_GRAPH = False
-
 if not os.path.isfile("./output/graph/conv2.yaml"):
     __C.MAKE_GRAPH = True
+# For reproducibility
+__C.RND_SEED = 3
 
 # Enable Visdom for loss visualization
 # install: pip install visdom
@@ -56,21 +57,9 @@ if not os.path.isfile("./output/graph/conv2.yaml"):
 __C.Visdom = False
 
 if cfg.Visdom:
-    import visdom
-    now = time.localtime()
-
-    __C.vis = visdom.Visdom()
-    __C.loss_window = __C.vis.line(
-                Y=torch.zeros((1)).cpu(),
-                X=torch.zeros((1)).cpu(),
-                opts=dict(xlabel='epoch',ylabel='Loss',
-                          title="training_"
-                          +str(now.tm_mon)+"."
-                          +str(now.tm_mday)+"-"
-                          +str(now.tm_hour)+":"
-                          +str(now.tm_min),
-                legend=['Loss']))
-
+    from visdom import Visdom
+    __C.vis = Visdom()
+    __C.loss_window = ""
 
 # Unused
 

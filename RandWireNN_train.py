@@ -2,8 +2,6 @@ import torch
 import torch.optim as optim
 import time
 import os, sys
-abs_path = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.join(abs_path, ".."))
 
 def train(train_loader, model, criterion, optimizer, epoch, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
@@ -51,8 +49,6 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         if i % cfg.SAVE_FREQ == 0:
             torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
 
-
-
 def validate(val_loader, model, criterion, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -93,6 +89,7 @@ def validate(val_loader, model, criterion, cfg):
               .format(top1=top1, top5=top5))
 
     return top1.avg
+
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""
@@ -162,3 +159,15 @@ def prepare(cfg, use_arg_parser=True):
         os.mkdir("./output/model")
     if not os.path.isdir("./output/graph"):
         os.mkdir("./output/graph")
+    if cfg.Visdom:
+        now = time.localtime()
+        cfg.loss_window = cfg.vis.line(
+                    Y=torch.zeros((1)).cpu(),
+                    X=torch.zeros((1)).cpu(),
+                    opts=dict(xlabel='epoch',ylabel='Loss',
+                                title=cfg.DATASET_NAME+"_"
+                                +str(now.tm_mon)+"."
+                                +str(now.tm_mday)+"-"
+                                +str(now.tm_hour)+":"
+                                +str(now.tm_min),
+                    legend=['Loss']))

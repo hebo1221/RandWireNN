@@ -1,10 +1,3 @@
-# Copyright (c) Microsoft. All rights reserved.
-
-# Licensed under the MIT license. See LICENSE.md file in the project root
-# for full license information.
-# ==============================================================================
-
-# `pip install easydict` if you don't have it
 from easydict import EasyDict as edict
 import os
 __C = edict()
@@ -22,19 +15,18 @@ __C.TRAINED_MODEL_LOAD_DIR = "./output/model/MNIST_009_00.cpt"
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 500
+__C.BATCH_SIZE = 128
 __C.EPOCH = 100
 
 #
 # Network parameters
 #
 __C.NN = edict()
-
 __C.NN.REGIME = "SMALL"
 
 # for image color scale
 __C.NN.COLOR = 1
-# Actural image is 28x28, but resizied in torchvision.transforms.Resize()
+# Actural image is 28x28, but resizied
 __C.NN.IMG_SIZE = 32
 # Random graph node
 __C.NN.NODES = 32
