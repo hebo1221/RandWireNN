@@ -1,6 +1,6 @@
 # RandWireNN
 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for) 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/exploring-randomly-wired-neural-networks-for/image-classification-imagenet-image-reco)](https://paperswithcode.com/sota/image-classification-imagenet-image-reco?p=exploring-randomly-wired-neural-networks-for)
 ![Datasets](https://img.shields.io/badge/Dataset-MNIST-lightgray.svg)![Datasets](https://img.shields.io/badge/Dataset-CIFAR--10,100-green.svg)![Datasets](https://img.shields.io/badge/Dataset-ImageNet--12-yellow.svg)
 
 ## Results
@@ -9,9 +9,9 @@ In small regime, C=78, WS(4,0.75)
 
 | datasets    | top-1 acc. | top-5 acc. | epoch |
 | ----------- | ---------- | ---------- | ----- |
-| MNIST       | 99.34      | 100.       | 9     |
-| CIFAR-10    | 73.79      | 97.66      | 250   |
-| CIFAR-100   | 34.81      | 62.46      | 250   | 
+| MNIST       | 99.41      | 100.       | 250   |
+| CIFAR-10    | 75.32      | 98.09      | 250   |
+| CIFAR-100   | 38.12      | 67.17      | 250   | 
 | ImageNet-12 | 56.70      | 78.95      | 81    |
 
 In regular regime, C=109, WS(4,0.75)
@@ -40,10 +40,11 @@ pip install -r requirements.txt
 To train and evaluate run
 
 `python run_RandWireNN.py`
-- set your dataset directory in RandWireNN_config.py, _C.DATASET_DIR
-- If you want to change dataset, see run_RandWireNN.get_configuration()
-- You don't have to prepare a dataset. The code will automatically download.
-- You can change the hyperparameters from _config.py
+- set your dataset directory in RandWireNN_config.py, __C.DATASET_DIR
+- You don't have to prepare a dataset. The code will automatically download it.
+- If you want to change dataset, see run_RandWireNN.py, get_configuration()
+- You can change the hyperparameters from config.py files
+- If you want loss graph, see RandWireNN_config.py, __C.Visdom
 
 ### Reference
 

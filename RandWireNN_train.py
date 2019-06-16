@@ -2,7 +2,6 @@ import torch
 import torch.optim as optim
 import time
 import os, sys
-
 abs_path = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.join(abs_path, ".."))
 
@@ -46,9 +45,13 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
 
         if i % cfg.PRINT_FREQ == 0:
             progress.print(i)
+            if cfg.Visdom:
+                cfg.vis.line(X=torch.Tensor([epoch+(i/len(train_loader))]).unsqueeze(0).cpu(),Y=torch.Tensor([loss]).unsqueeze(0).cpu(),win=cfg.loss_window,update='append')
 
         if i % cfg.SAVE_FREQ == 0:
             torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
+
+
 
 def validate(val_loader, model, criterion, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
@@ -154,8 +157,8 @@ def accuracy(output, target, topk=(1,)):
 
 def prepare(cfg, use_arg_parser=True):
     if not os.path.isdir("./output/"):
-	    os.mkdir("./output/")
+        os.mkdir("./output/")
     if not os.path.isdir("./output/model"):
-	    os.mkdir("./output/model")
+        os.mkdir("./output/model")
     if not os.path.isdir("./output/graph"):
-	    os.mkdir("./output/graph")
+        os.mkdir("./output/graph")

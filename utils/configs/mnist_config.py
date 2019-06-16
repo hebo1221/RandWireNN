@@ -22,8 +22,8 @@ __C.TRAINED_MODEL_LOAD_DIR = "./output/model/MNIST_009_00.cpt"
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 128
-__C.EPOCH = 10
+__C.BATCH_SIZE = 500
+__C.EPOCH = 100
 
 #
 # Network parameters

@@ -9,6 +9,7 @@ from torchvision.datasets.utils import check_integrity, download_url
 
 
 def train_data_loader(cfg):    
+    print("train_loader")
     tf_mnist = transforms.Compose(
     [transforms.Resize(64),
      transforms.ToTensor()])
@@ -45,6 +46,7 @@ def train_data_loader(cfg):
             shuffle=True, pin_memory=True, drop_last=True)
 
 def val_data_loader(cfg):    
+    print("val_loader")
     tf_mnist = transforms.Compose(
     [transforms.Resize(64),
      transforms.ToTensor()])

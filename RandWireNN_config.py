@@ -1,6 +1,7 @@
 import os
 import torch
 from easydict import EasyDict as edict
+import time
 
 __C = edict()
 cfg = __C
@@ -15,7 +16,7 @@ __C.TEST_MODE = False
 __C.GRAPH_MODEL = "WS"
 
 # dataset directory
-__C.DATASET_DIR = "G:/dataset/"
+__C.DATASET_DIR = "C:/dataset/"
 
 if not os.path.isdir(__C.DATASET_DIR):
     # default dataset directory
@@ -35,7 +36,7 @@ __C.WS.K = 4
 __C.WS.P = 0.75
 
 # optimizer
-__C.LEARNING_RATE = 0.01
+__C.LEARNING_RATE = 0.1
 __C.MOMENTUM = 0.9
 __C.WEIGHT_DECAY = 0.00005
 __C.LR_SCHEDULER_STEP = 1
@@ -48,8 +49,27 @@ __C.MAKE_GRAPH = False
 if not os.path.isfile("./output/graph/conv2.yaml"):
     __C.MAKE_GRAPH = True
 
+# Enable Visdom for loss visualization
+# install: pip install visdom
+# execute: python -m visdom.server
+# access:  http://localhost:8097
+__C.Visdom = False
 
+if cfg.Visdom:
+    import visdom
+    now = time.localtime()
 
+    __C.vis = visdom.Visdom()
+    __C.loss_window = __C.vis.line(
+                Y=torch.zeros((1)).cpu(),
+                X=torch.zeros((1)).cpu(),
+                opts=dict(xlabel='epoch',ylabel='Loss',
+                          title="training_"
+                          +str(now.tm_mon)+"."
+                          +str(now.tm_mday)+"-"
+                          +str(now.tm_hour)+":"
+                          +str(now.tm_min),
+                legend=['Loss']))
 
 
 # Unused
@@ -57,20 +77,3 @@ if not os.path.isfile("./output/graph/conv2.yaml"):
 
 # Enable plotting of generated random graph model
 __C.VISUALIZE_GRAPH = False
-
-# Enable tensorbordx
-__C.TENSORBOARDX = False
-
-# Debug parameters
-__C.DEBUG_OUTPUT = False
-__C.GRAPH_TYPE = "png" # "png" or "pdf"
-
-#
-# MISC
-#
-
-# For reproducibility
-__C.RND_SEED = 3
-
-# Default GPU device id
-__C.GPU_ID = 0
