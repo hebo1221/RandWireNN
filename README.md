@@ -10,9 +10,9 @@ In small regime, C=78, WS(4,0.75)
 
 | datasets    | top-1 acc. | top-5 acc. | epoch |
 | ----------- | ---------- | ---------- | ----- |
-| MNIST       | 99.41      | 100.       | 250   |
-| CIFAR-10    | 80.59      | 98.71      | 100   |
-| CIFAR-100   | 38.12      | 67.17      | 250   | 
+| MNIST       | 99.51      | 100.       | 100   |
+| CIFAR-10    | 82.95      | 99.03      | 250   |
+| CIFAR-100   | 52.47      | 79.93      | 250   | 
 | ImageNet-12 | 56.70      | 78.95      | 81    |
 
 In regular regime, C=109, WS(4,0.75)
@@ -41,11 +41,10 @@ Just
 ```
 python run_RandWireNN.py
 ```
-- It doesn't matter if your system is cpu or gpu or multi-gpu.
 - If you want to change dataset, see run_RandWireNN.py, get_configuration(). MNIST,CIFAR,ImageNet available
 - You don't have to prepare a dataset. The code will automatically download it.
 - But if you have it already, set your dataset directory in RandWireNN_config.py, __C.DATASET_DIR
-- If you want train-loss graph, see RandWireNN_config.py, __C.Visdom
+- If you want to see a train-loss graph, see RandWireNN_config.py, __C.VISDOM
 - You can change the hyperparameters and dataset settings from *_config.py files. Look it up.
 
 

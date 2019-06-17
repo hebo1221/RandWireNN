@@ -9,37 +9,33 @@ cfg = __C
 # CPU or GPU
 __C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-# Test mode
+# Test mode: skip training
 __C.TEST_MODE = False
 
-# model config
-__C.GRAPH_MODEL = "WS"
+# set your dataset directory
+__C.DATASET_DIR = "C:/dataset/"
 
-# dataset directory
-__C.DATASET_DIR = "G:/dataset/"
-
+# default dataset directory
 if not os.path.isdir(__C.DATASET_DIR):
-    # default dataset directory
     __C.DATASET_DIR = "./dataset/"
     if not os.path.isdir(__C.DATASET_DIR):
         os.mkdir(__C.DATASET_DIR)
 
-# Erdos-Renyi  model
-__C.ER = edict()
-__C.ER.P = 0.2
-# Barabasi-Albert model
-__C.BA = edict()
-__C.BA.M =  5
-# Watts-Strogatz model
-__C.WS = edict()
-__C.WS.K = 4
-__C.WS.P = 0.75
+# model config
+__C.GRAPH_MODEL = "WS"
 
-# optimizer
+# Erdos-Renyi  model
+__C.ER_P = 0.2
+# Barabasi-Albert model
+__C.BA_M =  5
+# Watts-Strogatz model
+__C.WS_K = 4
+__C.WS_P = 0.75
+
+# Optimizer
 __C.LEARNING_RATE = 0.1
 __C.MOMENTUM = 0.9
-__C.WEIGHT_DECAY = 0.00005
-__C.LR_SCHEDULER_STEP = 1
+__C.WEIGHT_DECAY = 5e-4
 
 # Debug parameters
 __C.PRINT_FREQ = 10
@@ -54,15 +50,15 @@ __C.RND_SEED = 3
 # install: pip install visdom
 # execute: python -m visdom.server
 # access:  http://localhost:8097
-__C.Visdom = False
+__C.VISDOM = True
 
-if cfg.Visdom:
+if cfg.VISDOM:
     from visdom import Visdom
     __C.vis = Visdom()
     __C.loss_window = ""
 
-# Unused
 
+# Unused
 
 # Enable plotting of generated random graph model
 __C.VISUALIZE_GRAPH = False

@@ -23,11 +23,11 @@ def get_graph_info(graph):
 
 def build_graph(Nodes, cfg ):
   if cfg.GRAPH_MODEL == 'ER':
-    return nx.random_graphs.erdos_renyi_graph(Nodes, cfg.ER.P, cfg.RND_SEED)
+    return nx.random_graphs.erdos_renyi_graph(Nodes, cfg.ER_P, cfg.RND_SEED)
   elif cfg.GRAPH_MODEL == 'BA':
-    return nx.random_graphs.barabasi_albert_graph(Nodes, cfg.BA.M,cfg.RND_SEED)
+    return nx.random_graphs.barabasi_albert_graph(Nodes, cfg.BA_M,cfg.RND_SEED)
   elif cfg.GRAPH_MODEL == 'WS':
-    return nx.random_graphs.connected_watts_strogatz_graph(Nodes, cfg.WS.K, cfg.WS.P, tries=200, seed=cfg.RND_SEED)
+    return nx.random_graphs.connected_watts_strogatz_graph(Nodes, cfg.WS_K, cfg.WS_P, tries=200, seed=cfg.RND_SEED)
 
 def save_graph(graph, path):
   nx.write_yaml(graph, path)

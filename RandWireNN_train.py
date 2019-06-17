@@ -3,6 +3,7 @@ import torch.optim as optim
 import time
 import os, sys
 
+
 def train(train_loader, model, criterion, optimizer, epoch, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
@@ -24,6 +25,7 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         target = target.to(cfg.DEVICE)
         
         # compute output
+        optimizer.zero_grad()
         output = model(input)
         loss = criterion(output, target)
 
@@ -34,7 +36,6 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         top5.update(acc5[0], input.size(0))
 
         # compute gradient and do SGD step
-        optimizer.zero_grad()
         loss.backward()
         optimizer.step()
         # measure elapsed time
@@ -43,9 +44,12 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
 
         if i % cfg.PRINT_FREQ == 0:
             progress.print(i)
-            if cfg.Visdom:
+            if cfg.VISDOM:
                 cfg.vis.line(X=torch.Tensor([epoch+(i/len(train_loader))]).unsqueeze(0).cpu(),Y=torch.Tensor([loss]).unsqueeze(0).cpu(),win=cfg.loss_window,update='append')
-
+                # for check lr_scheduler
+                # for param_group in optimizer.param_groups:
+                    # print(param_group['lr'])
+                
         if i % cfg.SAVE_FREQ == 0:
             torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
 
@@ -159,7 +163,7 @@ def prepare(cfg, use_arg_parser=True):
         os.mkdir("./output/model")
     if not os.path.isdir("./output/graph"):
         os.mkdir("./output/graph")
-    if cfg.Visdom:
+    if cfg.VISDOM:
         now = time.localtime()
         cfg.loss_window = cfg.vis.line(
                     Y=torch.zeros((1)).cpu(),
