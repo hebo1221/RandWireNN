@@ -41,7 +41,7 @@ if __name__ == '__main__':
             val_loss = train(train_loader, model, criterion, optimizer, epoch, cfg)
             scheduler.step()
         end = (time.time() - start)//60
-        print("train time: {:d}D {:d}H {:d}M".format(end//1440, (end%1440)//60, end%60))
+        print("train time: {}D {}H {}M".format(end//1440, (end%1440)//60, end%60))
 
     validate(val_loader, model, criterion, cfg)
     

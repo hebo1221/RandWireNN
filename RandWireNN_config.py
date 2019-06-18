@@ -13,7 +13,7 @@ __C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 __C.TEST_MODE = False
 
 # set your dataset directory
-__C.DATASET_DIR = "C:/dataset/"
+__C.DATASET_DIR = "G:/dataset/"
 
 # default dataset directory
 if not os.path.isdir(__C.DATASET_DIR):

@@ -40,8 +40,6 @@ if __name__ == '__main__':
 
     graph1 = build_graph(32, 'WS', 0, 4, 0.75)
 
-    save_graph(graph1, ".\graph\graph1.yaml")
-
     options = {
     'node_color': 'Yellow',
     'node_size': 500,

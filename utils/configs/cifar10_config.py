@@ -10,7 +10,7 @@ __C.DOWNLOAD = True
 
 # If set to 'True' training will use trained model
 __C.LOAD_TRAINED_MODEL = False
-__C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR10_150_00.cpt"
+__C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR10_249_00.cpt"
 
 #
 # Training parameters

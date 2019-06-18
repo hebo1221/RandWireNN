@@ -164,14 +164,10 @@ def prepare(cfg, use_arg_parser=True):
     if not os.path.isdir("./output/graph"):
         os.mkdir("./output/graph")
     if cfg.VISDOM:
-        now = time.localtime()
         cfg.loss_window = cfg.vis.line(
                     Y=torch.zeros((1)).cpu(),
                     X=torch.zeros((1)).cpu(),
                     opts=dict(xlabel='epoch',ylabel='Loss',
                                 title=cfg.DATASET_NAME+"_"
-                                +str(now.tm_mon)+"."
-                                +str(now.tm_mday)+"-"
-                                +str(now.tm_hour)+":"
-                                +str(now.tm_min),
+                                +time.strftime("%m/%d %H:%M", time.localtime()),
                     legend=['Loss']))
