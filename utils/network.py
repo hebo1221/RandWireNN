@@ -83,8 +83,8 @@ class Net(nn.Module):
         color = cfg.NN.COLOR
         N = cfg.NN.NODES
         C = cfg.NN.CHANNELS
-        num_classes = cfg.NN.NUM_CLASSES
         size = cfg.NN.IMG_SIZE
+        num_classes = cfg.NN.NUM_CLASSES
 
         if cfg.MAKE_GRAPH:
             graph2 = build_graph(N//2, cfg)
@@ -100,7 +100,7 @@ class Net(nn.Module):
             graph3 = load_graph('./output/graph/conv3.yaml')
             graph4 = load_graph('./output/graph/conv4.yaml')
             graph5 = load_graph('./output/graph/conv5.yaml')
-
+        
         if cfg.NN.REGIME == "SMALL":
     
             self.conv1 =  nn.Sequential(
@@ -116,7 +116,7 @@ class Net(nn.Module):
                     nn.Conv2d(4*C, 1280, kernel_size=1),
                     nn.BatchNorm2d(1280),
                     nn.ReLU(True),
-                    nn.AvgPool2d(size//8, stride=1),
+                    nn.AvgPool2d(size//16, stride=1),
                 )
             self.fc = nn.Linear(1280, num_classes)
 

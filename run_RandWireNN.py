@@ -8,7 +8,8 @@ import time
 def get_configuration():
     # load configs for base network and data set
     from RandWireNN_config import cfg as network_cfg
-    from utils.configs.cifar100_config import cfg as dataset_cfg
+    from utils.configs.imagenet_config import cfg as dataset_cfg
+    # for the MNIST data set use:     from utils.configs.mnist_config import cfg as dataset_cfg
     # for the CIFAR10 data set use:     from utils.configs.cifar10_config import cfg as dataset_cfg
     # for the ImageNet data set use:    from utils.configs.imagenet_config import cfg as dataset_cfg
     
