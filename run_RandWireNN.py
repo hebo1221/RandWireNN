@@ -25,7 +25,6 @@ if __name__ == '__main__':
 
     if torch.cuda.device_count() > 1:
         print("Let's use", torch.cuda.device_count(), "GPUs!")
-        cfg.BATCH_SIZE *= torch.cuda.device_count()
         model = torch.nn.DataParallel(model)
     model.to(cfg.DEVICE)
     
