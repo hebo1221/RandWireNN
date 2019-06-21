@@ -8,10 +8,10 @@ import time
 def get_configuration():
     # load configs for base network and data set
     from RandWireNN_config import cfg as network_cfg
-    from utils.configs.imagenet_config import cfg as dataset_cfg
+    from utils.configs.cifar10_config import cfg as dataset_cfg
     # for the MNIST data set use:     from utils.configs.mnist_config import cfg as dataset_cfg
     # for the CIFAR10 data set use:     from utils.configs.cifar10_config import cfg as dataset_cfg
-    # for the ImageNet data set use:    from utils.configs.imagenet_config import cfg as dataset_cfg
+    # for the ImageNet data set use:    from utils.configs.ImageNet_config import cfg as dataset_cfg
     
     return merge_configs([network_cfg, dataset_cfg])
 
@@ -39,8 +39,12 @@ if __name__ == '__main__':
     if not cfg.TEST_MODE:
         start = time.time()
         for epoch in range(cfg.EPOCH):
-            val_loss = train(train_loader, model, criterion, optimizer, epoch, cfg)
+            train(train_loader, model, criterion, optimizer, epoch, cfg)
             scheduler.step()
+            if epoch % cfg.VAL_FREQ == 0:
+                val_loss = validate(val_loader, model, criterion, cfg)
+                if cfg.VISDOM:
+                    cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([val_loss]).unsqueeze(0).cpu(),win=cfg.loss_window,name='val_loss',update='append')      
         end = (time.time() - start)//60
         print("train time: {}D {}H {}M".format(end//1440, (end%1440)//60, end%60))
 

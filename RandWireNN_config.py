@@ -13,7 +13,7 @@ __C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 __C.TEST_MODE = False
 
 # set your dataset directory
-__C.DATASET_DIR = "G:/dataset/"
+__C.DATASET_DIR = "C:/dataset/"
 
 # default dataset directory
 if not os.path.isdir(__C.DATASET_DIR):
@@ -40,6 +40,7 @@ __C.WEIGHT_DECAY = 1e-5
 # Debug parameters
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
+__C.VAL_FREQ = 3
 __C.MAKE_GRAPH = False
 if not os.path.isfile("./output/graph/conv2.yaml"):
     __C.MAKE_GRAPH = True
