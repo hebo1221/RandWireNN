@@ -26,8 +26,8 @@ __C.NN.REGIME = "SMALL"
 
 # for image color scale: gray scale
 __C.NN.COLOR = 1
-# Actural image is 28x28, but resizied
-__C.NN.IMG_SIZE = 32
+# MNIST images are 28x28, but resizied to 64x64
+__C.NN.IMG_SIZE = 64
 # Random graph node
 __C.NN.NODES = 32
 __C.NN.CHANNELS = 78

@@ -92,7 +92,7 @@ def validate(val_loader, model, criterion, cfg):
         print(' * Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f}'
               .format(top1=top1, top5=top5))
 
-    return losses.avg
+    return losses.avg, top1.avg
 
 class AverageMeter(object):
     """Computes and stores the average and current value"""

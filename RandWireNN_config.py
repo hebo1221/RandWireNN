@@ -35,7 +35,7 @@ __C.WS_P = 0.75
 # Optimizer
 __C.LEARNING_RATE = 0.1
 __C.MOMENTUM = 0.9
-__C.WEIGHT_DECAY = 1e-5 
+__C.WEIGHT_DECAY = 5e-5 
 
 # Debug parameters
 __C.PRINT_FREQ = 10

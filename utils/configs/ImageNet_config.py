@@ -15,7 +15,7 @@ __C.TRAINED_MODEL_LOAD_DIR = "./output/model/081_007000.cpt"
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 60
+__C.BATCH_SIZE = 20
 __C.EPOCH = 250
 
 #

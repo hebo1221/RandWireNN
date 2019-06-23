@@ -41,11 +41,11 @@ if __name__ == '__main__':
             train(train_loader, model, criterion, optimizer, epoch, cfg)
             scheduler.step()
             if epoch % cfg.VAL_FREQ == 0:
-                val_loss = validate(val_loader, model, criterion, cfg)
+                val_loss, acc = validate(val_loader, model, criterion, cfg)
                 if cfg.VISDOM:
                     cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([val_loss]).unsqueeze(0).cpu(),win=cfg.loss_window,name='val_loss',update='append')      
+                    cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([acc/100]).unsqueeze(0).cpu(),win=cfg.loss_window,name='val_acc',update='append')      
         end = (time.time() - start)//60
         print("train time: {}D {}H {}M".format(end//1440, (end%1440)//60, end%60))
 
     validate(val_loader, model, criterion, cfg)
-    

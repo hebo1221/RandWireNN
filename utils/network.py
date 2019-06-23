@@ -131,10 +131,12 @@ class Net(nn.Module):
             self.conv5 = StageBlock(graph5, 4*C, 8*C)
             self.classifier = nn.Sequential(
                     nn.ReLU(True),
+                    nn.Dropout(0.2),
                     nn.Conv2d(8*C, 1280, kernel_size=1),
                     nn.BatchNorm2d(1280),
                     nn.ReLU(True),
-                    nn.AvgPool2d(size//8, stride=1),
+                    nn.Dropout(0.2),
+                    nn.AvgPool2d(size//32, stride=1),
                 )
             self.fc = nn.Linear(1280, num_classes)
 

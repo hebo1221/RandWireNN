@@ -10,12 +10,12 @@ __C.DOWNLOAD = True
 
 # If set to 'True' training will use trained model
 __C.LOAD_TRAINED_MODEL = False
-__C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR10_249_00.cpt"
+__C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR10_060_00.cpt"
 
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 2000
+__C.BATCH_SIZE = 128
 __C.EPOCH = 250
 
 #
@@ -26,8 +26,8 @@ __C.NN.REGIME = "SMALL"
 
 # for image color scale
 __C.NN.COLOR = 3
-# 32x32 images
-__C.NN.IMG_SIZE = 32
+# 32x32 images resizied to 64x64
+__C.NN.IMG_SIZE = 64
 # Random graph node
 __C.NN.NODES = 32
 __C.NN.CHANNELS = 78
