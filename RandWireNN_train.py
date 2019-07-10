@@ -45,7 +45,9 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
         if i % cfg.PRINT_FREQ == 0:
             progress.print(i)
             if cfg.VISDOM:
-                cfg.vis.line(X=torch.Tensor([epoch+(i/len(train_loader))]).unsqueeze(0).cpu(),Y=torch.Tensor([loss]).unsqueeze(0).cpu(),win=cfg.loss_window,name='train_loss',update='append')
+                cfg.vis.line(X=torch.Tensor([epoch+(i/len(train_loader))]).unsqueeze(0).cpu(),
+                             Y=torch.Tensor([loss]).unsqueeze(0).cpu(),
+                             env='torch',win=cfg.loss_window,name='train_loss',update='append')
                 # for check lr_scheduler
                 # for param_group in optimizer.param_groups:
                     # print(param_group['lr'])
@@ -166,7 +168,7 @@ def prepare(cfg, use_arg_parser=True):
         if cfg.VISDOM:
             cfg.loss_window = cfg.vis.line(
                         Y=torch.zeros((1)).cpu(),
-                        X=torch.zeros((1)).cpu(),
+                        X=torch.zeros((1)).cpu(),env='torch',
                         opts=dict(xlabel='epoch',ylabel='Loss',
                                     title=cfg.DATASET_NAME+"_"
                                     +time.strftime("%m/%d %H:%M", time.localtime()),

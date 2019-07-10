@@ -6,7 +6,7 @@ cfg = __C
 # Data set config
 
 __C.DATASET_NAME = "ImageNet"
-__C.DOWNLOAD = False
+__C.DOWNLOAD = True
 
 # If set to 'True' training will use trained model
 __C.LOAD_TRAINED_MODEL = False
@@ -30,5 +30,4 @@ __C.NN.COLOR = 3
 __C.NN.IMG_SIZE = 224
 # Random graph node
 __C.NN.NODES = 32
-__C.NN.CHANNELS = 78
 __C.NN.NUM_CLASSES = 1000

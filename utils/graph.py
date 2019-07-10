@@ -37,8 +37,23 @@ def load_graph(path):
 
 
 if __name__ == '__main__':
+    from easydict import EasyDict as edict
+    __C = edict()
+    cfg = __C
+    # model config
+    __C.GRAPH_MODEL = "WS"
 
-    graph1 = build_graph(32, 'WS', 0, 4, 0.75)
+    # Erdos-Renyi  model
+    __C.ER_P = 0.2
+    # Barabasi-Albert model
+    __C.BA_M =  5
+    # Watts-Strogatz model
+    __C.WS_K = 4
+    __C.WS_P = 0.75
+    # For reproducibility
+    __C.RND_SEED = 3
+
+    graph1 = build_graph(32, cfg)
 
     options = {
     'node_color': 'Yellow',

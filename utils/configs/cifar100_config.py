@@ -15,7 +15,7 @@ __C.TRAINED_MODEL_LOAD_DIR = "./output/model/CIFAR100_250_00.cpt"
 #
 # Training parameters
 #
-__C.BATCH_SIZE = 128
+__C.BATCH_SIZE = 64
 __C.EPOCH = 250
 
 #
@@ -26,9 +26,8 @@ __C.NN.REGIME = "SMALL"
 
 # for image color scale
 __C.NN.COLOR = 3
-# 32x32 images resizied to 64x64
-__C.NN.IMG_SIZE = 64
+# 32x32 images resizied to 128x128
+__C.NN.IMG_SIZE = 128
 # Random graph node
 __C.NN.NODES = 32
-__C.NN.CHANNELS = 78
 __C.NN.NUM_CLASSES = 100

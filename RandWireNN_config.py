@@ -13,7 +13,7 @@ __C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 __C.TEST_MODE = False
 
 # set your dataset directory
-__C.DATASET_DIR = "G:/dataset/"
+__C.DATASET_DIR = "C:/dataset/"
 
 # default dataset directory
 if not os.path.isdir(__C.DATASET_DIR):
@@ -51,7 +51,7 @@ __C.RND_SEED = 3
 # install: pip install visdom
 # execute: python -m visdom.server
 # access:  http://localhost:8097
-__C.VISDOM = True
+__C.VISDOM = False
 
 if cfg.VISDOM:
     from visdom import Visdom

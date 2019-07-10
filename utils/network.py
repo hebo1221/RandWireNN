@@ -82,7 +82,6 @@ class Net(nn.Module):
         # for image color scale
         color = cfg.NN.COLOR
         N = cfg.NN.NODES
-        C = cfg.NN.CHANNELS
         size = cfg.NN.IMG_SIZE
         num_classes = cfg.NN.NUM_CLASSES
 
@@ -102,7 +101,7 @@ class Net(nn.Module):
             graph5 = load_graph('./output/graph/conv5.yaml')
         
         if cfg.NN.REGIME == "SMALL":
-    
+            C = 78
             self.conv1 =  nn.Sequential(
                 conv_unit(color, C//2, 2),
                 nn.BatchNorm2d(C//2)
@@ -121,6 +120,7 @@ class Net(nn.Module):
             self.fc = nn.Linear(1280, num_classes)
 
         if cfg.NN.REGIME == "REGULAR":
+            C = 109
             self.conv1 =  nn.Sequential(
                 conv_unit(color, C//2, 2),
                 nn.BatchNorm2d(C//2)

@@ -11,24 +11,24 @@ from torchvision.datasets.utils import check_integrity, download_url
 def train_data_loader(cfg):    
     print("train_loader")
     tf_mnist = transforms.Compose(
-        [transforms.Resize(64),
-         transforms.RandomCrop(64, padding=4),
+        [transforms.Resize(cfg.NN.IMG_SIZE),
+         transforms.RandomCrop(cfg.NN.IMG_SIZE, padding=4),
          transforms.ToTensor(),
          transforms.Normalize((0.1307,), (0.3081,))])
     tf_cifar10 = transforms.Compose(
         [transforms.RandomHorizontalFlip(),
-         transforms.Resize(64),
-         transforms.RandomCrop(64, padding=4),
+         transforms.Resize(cfg.NN.IMG_SIZE),
+         transforms.RandomCrop(cfg.NN.IMG_SIZE, padding=4),
          transforms.ToTensor(),
          transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])
     tf_cifar100 = transforms.Compose(
         [transforms.RandomHorizontalFlip(),
-         transforms.Resize(64),
-         transforms.RandomCrop(64, padding=4),
+         transforms.Resize(cfg.NN.IMG_SIZE),
+         transforms.RandomCrop(cfg.NN.IMG_SIZE, padding=4),
          transforms.ToTensor(),
          transforms.Normalize((0.5071, 0.4865, 0.4409), (0.2673, 0.2564, 0.2762))])
     tf_imagenet = transforms.Compose(
-        [transforms.RandomResizedCrop(224),
+        [transforms.RandomResizedCrop(cfg.NN.IMG_SIZE),
         transforms.RandomHorizontalFlip(),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
@@ -57,19 +57,19 @@ def train_data_loader(cfg):
 def val_data_loader(cfg):    
     print("val_loader")
     tf_mnist = transforms.Compose(
-        [transforms.Resize(64),
+        [transforms.Resize(cfg.NN.IMG_SIZE),
          transforms.ToTensor(),
          transforms.Normalize((0.1307,), (0.3081,))])
     tf_cifar10 = transforms.Compose(
-        [transforms.Resize(64),
+        [transforms.Resize(cfg.NN.IMG_SIZE),
          transforms.ToTensor(),
          transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])
     tf_cifar100 = transforms.Compose(
-        [transforms.Resize(64),
+        [transforms.Resize(cfg.NN.IMG_SIZE),
          transforms.ToTensor(),
          transforms.Normalize((0.5071, 0.4865, 0.4409), (0.2673, 0.2564, 0.2762))])
     tf_imagenet = transforms.Compose(
-        [transforms.RandomResizedCrop(224),
+        [transforms.RandomResizedCrop(cfg.NN.IMG_SIZE),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])])
     
