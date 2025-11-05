@@ -4,6 +4,7 @@ from utils.network import Net
 from utils.config_helpers import merge_configs
 from utils.dataloader import train_data_loader, val_data_loader
 from utils.optimizers import get_optimizer, get_scheduler
+from utils.experiment_tracker import ExperimentTracker, BestModelTracker
 import time
 import logging
 
@@ -53,14 +54,28 @@ if __name__ == '__main__':
         scaler = torch.cuda.amp.GradScaler()
         logger.info("Mixed precision training (AMP) enabled")
 
+    # Initialize experiment tracker
+    tracker = ExperimentTracker(cfg) if (cfg.USE_TENSORBOARD or cfg.USE_WANDB) else None
+    best_model_tracker = BestModelTracker(cfg.BEST_MODEL_METRIC, cfg.BEST_MODEL_MODE) if cfg.SAVE_BEST_MODEL else None
+
+    # Log graph structure if tracker is enabled
+    if tracker and cfg.MAKE_GRAPH:
+        from utils.graph import load_graph
+        try:
+            graph = load_graph('./output/graph/conv3.yaml')
+            tracker.log_graph_structure(graph, name='conv3_graph')
+        except:
+            pass
+
     if cfg.LOAD_TRAINED_MODEL:
         model.load_state_dict(torch.load(cfg.TRAINED_MODEL_LOAD_DIR))
 
     if not cfg.TEST_MODE:
         start = time.time()
         for epoch in range(cfg.EPOCH+1):
-            # Pass scheduler to train function for OneCycleLR
-            train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=scaler, scheduler=scheduler)
+            # Pass scheduler and tracker to train function
+            train_metrics = train(train_loader, model, criterion, optimizer, epoch, cfg,
+                                 scaler=scaler, scheduler=scheduler, tracker=tracker)
 
             # Step scheduler (handle different scheduler types)
             if cfg.SCHEDULER.lower() == 'reduce_on_plateau':
@@ -72,12 +87,40 @@ if __name__ == '__main__':
                 # OneCycleLR steps per batch, not per epoch
                 scheduler.step()
 
+            # Validation
             if epoch % cfg.VAL_FREQ == 0:
                 val_loss, acc = validate(val_loader, model, criterion, cfg)
+
+                # Log validation metrics
+                if tracker:
+                    tracker.log_metrics({'loss': val_loss, 'acc': acc}, epoch, prefix='val/')
+
+                # Track best model
+                if best_model_tracker:
+                    val_metrics = {'val_loss': val_loss, 'val_acc': acc}
+                    best_model_tracker.update(val_metrics, epoch, model, tracker or type('obj', (object,), {'save_model': lambda *args: None})())
+
+                # Legacy Visdom support
                 if cfg.VISDOM:
                     cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([val_loss]).unsqueeze(0).cpu(),env='torch',win=cfg.loss_window,name='val_loss',update='append')
                     cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([acc/100]).unsqueeze(0).cpu(),env='torch',win=cfg.loss_window,name='val_acc',update='append')
+
+            # Save checkpoint periodically
+            if cfg.SAVE_CHECKPOINT_FREQ > 0 and epoch % cfg.SAVE_CHECKPOINT_FREQ == 0 and epoch > 0:
+                if tracker:
+                    tracker.save_model(model, f"checkpoint_epoch_{epoch}.pth")
+
         end = (time.time() - start)//60
         logger.info(f"Training completed in: {end//1440}D {(end%1440)//60}H {end%60}M")
 
-    validate(val_loader, model, criterion, cfg)
+        # Log best model info
+        if best_model_tracker:
+            logger.info(f"Best {best_model_tracker.metric_name}: {best_model_tracker.best_value:.4f} at epoch {best_model_tracker.best_epoch}")
+
+    # Final validation
+    final_val_loss, final_acc = validate(val_loader, model, criterion, cfg)
+    logger.info(f"Final validation - Loss: {final_val_loss:.4f}, Acc: {final_acc:.2f}%")
+
+    # Close tracker
+    if tracker:
+        tracker.finish()

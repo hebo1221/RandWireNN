@@ -21,16 +21,30 @@ if not os.path.isdir(__C.DATASET_DIR):
     if not os.path.isdir(__C.DATASET_DIR):
         os.mkdir(__C.DATASET_DIR)
 
-# model config
+# Graph Model Configuration
+# Available models: ER, BA, WS, NWS, PC, RR, COMPLETE, PATH, CYCLE
 __C.GRAPH_MODEL = "WS"
 
-# Erdos-Renyi  model
-__C.ER_P = 0.2
-# Barabasi-Albert model
-__C.BA_M =  5
-# Watts-Strogatz model
-__C.WS_K = 4
-__C.WS_P = 0.75
+# Erdos-Renyi (ER) model parameters
+__C.ER_P = 0.2  # Edge probability
+
+# Barabasi-Albert (BA) model parameters
+__C.BA_M = 5  # Number of edges to attach from new node
+
+# Watts-Strogatz (WS) model parameters
+__C.WS_K = 4  # Each node connected to k nearest neighbors
+__C.WS_P = 0.75  # Probability of rewiring
+
+# Newman-Watts-Strogatz (NWS) model parameters
+__C.NWS_K = 4  # Each node connected to k nearest neighbors
+__C.NWS_P = 0.1  # Probability of adding new edge
+
+# Powerlaw Cluster (PC) model parameters
+__C.PC_M = 3  # Number of random edges to add for each new node
+__C.PC_P = 0.1  # Probability of adding triangle after edge
+
+# Random Regular (RR) model parameters
+__C.RR_D = 4  # Degree of each node (must result in even total degree)
 
 # Optimizer Configuration
 __C.OPTIMIZER = "sgd"  # Options: sgd, adam, adamw, lion, rmsprop
@@ -54,7 +68,21 @@ __C.ANNEAL_STRATEGY = 'cos'  # Annealing strategy for OneCycleLR
 
 # Mixed Precision Training
 __C.USE_AMP = False  # Automatic Mixed Precision (FP16)
-__C.AMP_OPT_LEVEL = "O1"  # AMP optimization level (O0, O1, O2, O3) 
+__C.AMP_OPT_LEVEL = "O1"  # AMP optimization level (O0, O1, O2, O3)
+
+# Experiment Tracking
+__C.EXPERIMENT_NAME = f"rwnn_{time.strftime('%Y%m%d_%H%M%S')}"  # Experiment name
+__C.OUTPUT_DIR = "./output"  # Output directory for experiments
+__C.USE_TENSORBOARD = False  # Enable TensorBoard logging
+__C.USE_WANDB = False  # Enable Weights & Biases logging
+__C.WANDB_PROJECT = "randwirenn"  # W&B project name
+__C.WANDB_ENTITY = None  # W&B entity/team name (None for personal)
+
+# Model Checkpointing
+__C.SAVE_BEST_MODEL = True  # Save best model based on validation metric
+__C.BEST_MODEL_METRIC = "val_acc"  # Metric to track for best model
+__C.BEST_MODEL_MODE = "max"  # 'max' for accuracy, 'min' for loss
+__C.SAVE_CHECKPOINT_FREQ = 10  # Save checkpoint every N epochs (0 to disable)
 
 # Debug parameters
 __C.PRINT_FREQ = 10

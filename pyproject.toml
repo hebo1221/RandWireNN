@@ -50,9 +50,17 @@ viz = [
 optimizers = [
     "lion-pytorch>=0.1.0",  # Lion optimizer
 ]
+tracking = [
+    "tensorboard>=2.14.0",  # TensorBoard experiment tracking
+    "wandb>=0.16.0",  # Weights & Biases
+    "pillow>=10.0.0",  # Image processing for logging
+]
 all = [
     "visdom>=0.2.4",
     "lion-pytorch>=0.1.0",
+    "tensorboard>=2.14.0",
+    "wandb>=0.16.0",
+    "pillow>=10.0.0",
 ]
 
 [project.urls]

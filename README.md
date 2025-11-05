@@ -129,6 +129,50 @@ This repository has been extensively modernized with state-of-the-art improvemen
   - Pre-configured setups for different use cases
   - Easy-to-use configuration files in `/configs`
 
+### Phase 2: Experiment Infrastructure 🔬
+
+- **Experiment Tracking:**
+  - TensorBoard integration for real-time visualization
+  - Weights & Biases support for cloud-based tracking
+  - JSON logging for offline analysis
+  - Automatic hyperparameter logging
+  - Graph structure visualization
+
+- **Model Checkpointing:**
+  - Automatic best model saving based on validation metrics
+  - Periodic checkpoint saving
+  - Resume training from checkpoints
+
+- **Extended Graph Models:**
+  - Newman-Watts-Strogatz (NWS): Small-world with edge addition
+  - Powerlaw Cluster (PC): Scale-free with high clustering
+  - Random Regular (RR): Uniform degree distribution
+  - Plus ER, BA, WS from original implementation
+  - Total of 9 graph generation models
+
+**Using Experiment Tracking:**
+```bash
+# With TensorBoard (recommended)
+pip install tensorboard
+python -c "exec(open('configs/example_tensorboard.py').read())" && python run_RandWireNN.py
+
+# View results
+tensorboard --logdir=./output/experiments
+
+# With Weights & Biases (optional)
+pip install wandb
+# Set USE_WANDB=True in config
+```
+
+**Trying Different Graph Models:**
+```python
+# In RandWireNN_config.py or use example_graph_models.py
+__C.GRAPH_MODEL = "BA"  # Barabasi-Albert (scale-free)
+__C.GRAPH_MODEL = "NWS"  # Newman-Watts-Strogatz (small-world)
+__C.GRAPH_MODEL = "PC"  # Powerlaw Cluster (scale-free + clustering)
+__C.GRAPH_MODEL = "RR"  # Random Regular (uniform degree)
+```
+
 ### Foundation Updates
 
 - **Updated Dependencies:**

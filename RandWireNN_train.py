@@ -4,7 +4,7 @@ import time
 import os, sys
 
 
-def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, scheduler=None):
+def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, scheduler=None, tracker=None):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -75,6 +75,16 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, sc
 
         if i % cfg.SAVE_FREQ == 0:
             torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
+
+    # Log epoch metrics to tracker
+    if tracker:
+        tracker.log_metrics({
+            'loss': losses.avg,
+            'acc': top1.avg,
+            'acc_top5': top5.avg
+        }, epoch, prefix='train/')
+
+    return {'loss': losses.avg, 'acc': top1.avg, 'acc_top5': top5.avg}
 
 def validate(val_loader, model, criterion, cfg):
     batch_time = AverageMeter('Time', ':6.3f')
