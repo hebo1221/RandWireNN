@@ -33,6 +33,12 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, sc
                 output = model(input)
                 loss = criterion(output, target)
 
+                # Add KL divergence for variational inference
+                if getattr(cfg, 'compute_kl_loss', False):
+                    from utils.bayesian_layers import compute_kl_loss
+                    kl_loss = compute_kl_loss(model)
+                    loss = loss + cfg.KL_WEIGHT * kl_loss
+
             # Measure accuracy (outside autocast for stability)
             with torch.no_grad():
                 acc1, acc5 = accuracy(output.float(), target, topk=(1, 5))
@@ -45,6 +51,12 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, sc
             # Standard training
             output = model(input)
             loss = criterion(output, target)
+
+            # Add KL divergence for variational inference
+            if getattr(cfg, 'compute_kl_loss', False):
+                from utils.bayesian_layers import compute_kl_loss
+                kl_loss = compute_kl_loss(model)
+                loss = loss + cfg.KL_WEIGHT * kl_loss
 
             # measure accuracy and record loss
             acc1, acc5 = accuracy(output, target, topk=(1, 5))

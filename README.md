@@ -173,6 +173,63 @@ __C.GRAPH_MODEL = "PC"  # Powerlaw Cluster (scale-free + clustering)
 __C.GRAPH_MODEL = "RR"  # Random Regular (uniform degree)
 ```
 
+### Phase 3: Bayesian RWNN & Uncertainty Quantification 🎲
+
+- **Uncertainty Estimation:**
+  - MC Dropout: Simple and efficient (Gal & Ghahramani, 2016)
+  - Variational Inference: Full Bayesian treatment (Blundell et al., 2015)
+  - Epistemic uncertainty (model uncertainty)
+  - Aleatoric uncertainty (data uncertainty)
+  - Total predictive uncertainty
+
+- **Bayesian Layers:**
+  - BayesianConv2d: Convolutional layers with weight distributions
+  - BayesianLinear: Fully connected Bayesian layers
+  - MCDropout: Monte Carlo Dropout for uncertainty
+  - Automatic conversion of standard models to Bayesian
+
+- **Uncertainty Analysis:**
+  - Expected Calibration Error (ECE)
+  - Reliability diagrams
+  - Confidence vs accuracy analysis
+  - Uncertainty distribution visualization
+  - Per-sample confidence scores
+
+**Using Bayesian RWNN:**
+
+```bash
+# Method 1: MC Dropout (Recommended - Simple & Fast)
+python -c "exec(open('configs/example_bayesian_mc_dropout.py').read())" && python run_RandWireNN.py
+
+# Method 2: Variational Inference (More Principled)
+python -c "exec(open('configs/example_bayesian_variational.py').read())" && python run_RandWireNN.py
+```
+
+**Configuration:**
+```python
+# Enable Bayesian mode
+__C.USE_BAYESIAN = True
+__C.BAYESIAN_METHOD = "mc_dropout"  # or "variational"
+__C.MC_DROPOUT_P = 0.1  # Dropout probability
+__C.MC_SAMPLES = 30  # Number of MC samples
+__C.ESTIMATE_UNCERTAINTY = True  # Compute uncertainty metrics
+
+# For variational inference
+__C.VARIATIONAL_PRIOR_STD = 1.0
+__C.KL_WEIGHT = 1e-5
+```
+
+**Uncertainty Output:**
+- Reliability diagrams showing calibration quality
+- ECE scores for model confidence assessment
+- Per-sample uncertainty estimates
+- Separation of correct vs incorrect predictions by uncertainty
+
+Based on research:
+- "Bayesian Randomly Wired Neural Network with Variational Inference" (2020)
+- "Dropout as a Bayesian Approximation" (Gal & Ghahramani, 2016)
+- "Weight Uncertainty in Neural Networks" (Blundell et al., 2015)
+
 ### Foundation Updates
 
 - **Updated Dependencies:**

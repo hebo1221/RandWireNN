@@ -5,6 +5,8 @@ from utils.config_helpers import merge_configs
 from utils.dataloader import train_data_loader, val_data_loader
 from utils.optimizers import get_optimizer, get_scheduler
 from utils.experiment_tracker import ExperimentTracker, BestModelTracker
+from utils.bayesian_layers import convert_to_bayesian, compute_kl_loss
+from utils.uncertainty import UncertaintyEstimator, analyze_uncertainty
 import time
 import logging
 
@@ -32,12 +34,26 @@ if __name__ == '__main__':
     val_loader = val_data_loader(cfg)
     model = Net(cfg)
 
+    # Convert to Bayesian if enabled
+    if cfg.USE_BAYESIAN:
+        use_variational = (cfg.BAYESIAN_METHOD == "variational")
+        model = convert_to_bayesian(model, dropout_p=cfg.MC_DROPOUT_P, use_variational=use_variational)
+        logger.info(f"Converted to Bayesian model using {cfg.BAYESIAN_METHOD}")
+        if use_variational:
+            logger.info(f"KL weight: {cfg.KL_WEIGHT}")
+
     if torch.cuda.device_count() > 1:
         logger.info(f"Using {torch.cuda.device_count()} GPUs")
         model = torch.nn.DataParallel(model)
     model.to(cfg.DEVICE)
 
     criterion = torch.nn.CrossEntropyLoss().to(cfg.DEVICE)
+
+    # Store KL weight in cfg for training
+    if cfg.USE_BAYESIAN and cfg.BAYESIAN_METHOD == "variational":
+        cfg.compute_kl_loss = True
+    else:
+        cfg.compute_kl_loss = False
 
     # Use modern optimizer factory
     optimizer = get_optimizer(cfg.OPTIMIZER, model.parameters(), cfg)
@@ -120,6 +136,29 @@ if __name__ == '__main__':
     # Final validation
     final_val_loss, final_acc = validate(val_loader, model, criterion, cfg)
     logger.info(f"Final validation - Loss: {final_val_loss:.4f}, Acc: {final_acc:.2f}%")
+
+    # Uncertainty estimation
+    if cfg.USE_BAYESIAN and cfg.ESTIMATE_UNCERTAINTY:
+        logger.info("Estimating uncertainty on validation set...")
+        uncertainty_estimator = UncertaintyEstimator(
+            model, num_samples=cfg.MC_SAMPLES, device=cfg.DEVICE
+        )
+
+        uncertainty_results = uncertainty_estimator.estimate_uncertainty_batch(val_loader)
+
+        # Analyze and visualize
+        save_path = f"{cfg.OUTPUT_DIR}/experiments/{cfg.EXPERIMENT_NAME}/uncertainty_analysis.png" if tracker else None
+        analysis = analyze_uncertainty(uncertainty_results, save_path=save_path)
+
+        # Log to tracker
+        if tracker:
+            tracker.log_metrics({
+                'ece': analysis['expected_calibration_error'],
+                'mean_epistemic_unc': analysis['mean_epistemic_uncertainty'],
+                'mean_total_unc': analysis['mean_total_uncertainty'],
+            }, 0, prefix='uncertainty/')
+
+        logger.info("Uncertainty estimation complete!")
 
     # Close tracker
     if tracker:

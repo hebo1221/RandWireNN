@@ -84,6 +84,15 @@ __C.BEST_MODEL_METRIC = "val_acc"  # Metric to track for best model
 __C.BEST_MODEL_MODE = "max"  # 'max' for accuracy, 'min' for loss
 __C.SAVE_CHECKPOINT_FREQ = 10  # Save checkpoint every N epochs (0 to disable)
 
+# Bayesian Neural Network / Uncertainty Quantification
+__C.USE_BAYESIAN = False  # Enable Bayesian layers for uncertainty estimation
+__C.BAYESIAN_METHOD = "mc_dropout"  # Options: mc_dropout, variational
+__C.MC_DROPOUT_P = 0.1  # Dropout probability for MC Dropout
+__C.MC_SAMPLES = 30  # Number of Monte Carlo samples for uncertainty
+__C.VARIATIONAL_PRIOR_STD = 1.0  # Prior std for variational layers
+__C.KL_WEIGHT = 1e-5  # Weight for KL divergence loss (variational only)
+__C.ESTIMATE_UNCERTAINTY = False  # Compute uncertainty during validation
+
 # Debug parameters
 __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
