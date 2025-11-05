@@ -12,14 +12,14 @@ __C.DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 # Test mode: skip training
 __C.TEST_MODE = False
 
-# set your dataset directory
-__C.DATASET_DIR = "C:/dataset/"
+# set your dataset directory (cross-platform compatible)
+__C.DATASET_DIR = os.path.expanduser("~/dataset/")
 
-# default dataset directory
+# default dataset directory - use local directory if home directory doesn't exist
 if not os.path.isdir(__C.DATASET_DIR):
-    __C.DATASET_DIR = "./dataset/"
+    __C.DATASET_DIR = os.path.abspath("./dataset/")
     if not os.path.isdir(__C.DATASET_DIR):
-        os.mkdir(__C.DATASET_DIR)
+        os.makedirs(__C.DATASET_DIR, exist_ok=True)
 
 # model config
 __C.GRAPH_MODEL = "WS"
@@ -42,7 +42,7 @@ __C.PRINT_FREQ = 10
 __C.SAVE_FREQ = 1000
 __C.VAL_FREQ = 3
 __C.MAKE_GRAPH = False
-if not os.path.isfile("./output/graph/conv2.yaml"):
+if not os.path.isfile("./output/graph/conv2.graphml"):
     __C.MAKE_GRAPH = True
 # For reproducibility
 __C.RND_SEED = 3

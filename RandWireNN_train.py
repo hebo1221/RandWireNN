@@ -1,7 +1,11 @@
+from typing import Tuple, List
 import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader
 import torch.optim as optim
 import time
-import os, sys
+import os
+import sys
 
 
 def train(train_loader, model, criterion, optimizer, epoch, cfg):
@@ -141,7 +145,7 @@ def adjust_learning_rate(optimizer, epoch, args):
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
 
-def accuracy(output, target, topk=(1,)):
+def accuracy(output: torch.Tensor, target: torch.Tensor, topk: Tuple[int, ...] = (1,)) -> List[torch.Tensor]:
     """Computes the accuracy over the k top predictions for the specified values of k"""
     with torch.no_grad():
         maxk = max(topk)

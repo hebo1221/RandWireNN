@@ -90,15 +90,15 @@ class Net(nn.Module):
             graph3 = build_graph(N, cfg)
             graph4 = build_graph(N, cfg)
             graph5 = build_graph(N, cfg)
-            save_graph(graph2, './output/graph/conv2.yaml')
-            save_graph(graph3, './output/graph/conv3.yaml')
-            save_graph(graph4, './output/graph/conv4.yaml')
-            save_graph(graph5, './output/graph/conv5.yaml')
+            save_graph(graph2, './output/graph/conv2.graphml')
+            save_graph(graph3, './output/graph/conv3.graphml')
+            save_graph(graph4, './output/graph/conv4.graphml')
+            save_graph(graph5, './output/graph/conv5.graphml')
         else:
-            graph2 = load_graph('./output/graph/conv2.yaml')
-            graph3 = load_graph('./output/graph/conv3.yaml')
-            graph4 = load_graph('./output/graph/conv4.yaml')
-            graph5 = load_graph('./output/graph/conv5.yaml')
+            graph2 = load_graph('./output/graph/conv2.graphml')
+            graph3 = load_graph('./output/graph/conv3.graphml')
+            graph4 = load_graph('./output/graph/conv4.graphml')
+            graph5 = load_graph('./output/graph/conv5.graphml')
         
         if cfg.NN.REGIME == "SMALL":
             C = 78

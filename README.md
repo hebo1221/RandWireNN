@@ -26,15 +26,38 @@ In regular regime, C=109, WS(4,0.75)
 ## Running the example
 
 ### Setup
-Please prepare:
-[![Python Version](https://img.shields.io/badge/python-3.6,3.7-green.svg)](https://www.python.org/downloads/release/python-360/) [![Pytorch Version](https://img.shields.io/badge/pytorch-1.0,1.1-orange.svg)](https://pytorch.org/get-started/locally/)
+Requirements:
+[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/) [![PyTorch Version](https://img.shields.io/badge/pytorch-2.0+-orange.svg)](https://pytorch.org/get-started/locally/)
 
-Clone the repository and install the following additional packages:
+Clone the repository and install:
 
-```
+```bash
 git clone https://github.com/hebo1221/RandWireNN.git
+cd RandWireNN
+
+# Install the package and dependencies
+pip install -e .
+
+# Or install from requirements.txt
 pip install -r requirements.txt
+
+# For development (includes linting, formatting, etc.)
+pip install -e ".[dev]"
+
+# For visualization support
+pip install -e ".[viz]"
 ```
+
+#### Development Setup
+
+To set up pre-commit hooks for code quality:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+This will automatically run code formatting and linting checks before each commit.
 
 ### Running the demo
 Just

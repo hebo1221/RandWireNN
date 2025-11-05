@@ -1,10 +1,12 @@
+from typing import List, Tuple
 import networkx as nx
 import collections
 import matplotlib.pyplot as plt
+import os
 
 Node = collections.namedtuple('Node', ['id', 'inputs', 'type'])
 
-def get_graph_info(graph):
+def get_graph_info(graph: nx.Graph) -> Tuple[List[Node], List[int], List[int]]:
   input_nodes = []
   output_nodes = []
   Nodes = []
@@ -21,7 +23,7 @@ def get_graph_info(graph):
     Nodes.append(Node(node, [n for n in tmp if n < node], type))
   return Nodes, input_nodes, output_nodes
 
-def build_graph(Nodes, cfg ):
+def build_graph(Nodes: int, cfg) -> nx.Graph:
   if cfg.GRAPH_MODEL == 'ER':
     return nx.random_graphs.erdos_renyi_graph(Nodes, cfg.ER_P, cfg.RND_SEED)
   elif cfg.GRAPH_MODEL == 'BA':
@@ -29,11 +31,21 @@ def build_graph(Nodes, cfg ):
   elif cfg.GRAPH_MODEL == 'WS':
     return nx.random_graphs.connected_watts_strogatz_graph(Nodes, cfg.WS_K, cfg.WS_P, tries=200, seed=cfg.RND_SEED)
 
-def save_graph(graph, path):
-  nx.write_yaml(graph, path)
+def save_graph(graph: nx.Graph, path: str) -> None:
+  """Save graph using GraphML format (NetworkX 3.x compatible)"""
+  # Change extension from .yaml to .graphml
+  if path.endswith('.yaml'):
+    path = path.replace('.yaml', '.graphml')
+  nx.write_graphml(graph, path)
 
-def load_graph(path):
-  return nx.read_yaml(path)
+def load_graph(path: str) -> nx.Graph:
+  """Load graph using GraphML format (NetworkX 3.x compatible)"""
+  # Support both .yaml and .graphml extensions for backward compatibility
+  if path.endswith('.yaml'):
+    graphml_path = path.replace('.yaml', '.graphml')
+    if os.path.exists(graphml_path):
+      path = graphml_path
+  return nx.read_graphml(path)
 
 
 if __name__ == '__main__':
