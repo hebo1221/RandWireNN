@@ -47,6 +47,13 @@ dev = [
 viz = [
     "visdom>=0.2.4",
 ]
+optimizers = [
+    "lion-pytorch>=0.1.0",  # Lion optimizer
+]
+all = [
+    "visdom>=0.2.4",
+    "lion-pytorch>=0.1.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/hebo1221/RandWireNN"

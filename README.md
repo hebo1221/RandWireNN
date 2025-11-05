@@ -45,20 +45,91 @@ pip install -r requirements.txt
 ```
 
 ### Running the demo
-Just
-```
+Basic usage:
+```bash
 python run_RandWireNN.py
 ```
-- If you want to change dataset, see run_RandWireNN.py, get_configuration(). MNIST,CIFAR,ImageNet available
-- You don't have to prepare a dataset. The code will automatically download it.
-- But if you have it already, set your dataset directory in RandWireNN_config.py, __C.DATASET_DIR
-- If you want to see a train-loss graph, see RandWireNN_config.py, __C.VISDOM
-- You can change the hyperparameters and dataset settings from *_config.py files. Look it up.
+
+**Using example configurations with modern optimizers:**
+```bash
+# AdamW + Cosine Warmup + Mixed Precision (Recommended)
+python -c "exec(open('configs/example_adamw_cosine.py').read())" && python run_RandWireNN.py
+
+# SGD + OneCycleLR (Super-convergence)
+python -c "exec(open('configs/example_sgd_onecycle.py').read())" && python run_RandWireNN.py
+
+# Lion optimizer (Install: pip install lion-pytorch)
+python -c "exec(open('configs/example_lion.py').read())" && python run_RandWireNN.py
+```
+
+**Configuration options:**
+- Dataset selection: Edit `run_RandWireNN.py`, `get_configuration()`. MNIST, CIFAR-10/100, ImageNet available
+- Datasets auto-download if not found
+- Custom dataset directory: Set `__C.DATASET_DIR` in `RandWireNN_config.py`
+- Loss visualization: Set `__C.VISDOM = True` in config (requires visdom: `pip install visdom`)
+- All hyperparameters: See `*_config.py` files
+
+### Advanced Features (NEW!)
+
+**Modern Optimizers:**
+- `sgd`: Classic SGD with optional Nesterov momentum
+- `adam`: Standard Adam optimizer
+- `adamw`: AdamW with decoupled weight decay (recommended)
+- `lion`: Lion optimizer (requires `pip install lion-pytorch`)
+- `rmsprop`: RMSprop optimizer
+
+**Learning Rate Schedulers:**
+- `cosine`: Cosine annealing
+- `cosine_warmup`: Cosine with warm restarts
+- `onecycle`: OneCycleLR for super-convergence
+- `step`: Step decay
+- `multistep`: Multi-step decay
+- `exponential`: Exponential decay
+- `reduce_on_plateau`: Reduce on plateau
+
+**Mixed Precision Training:**
+Enable automatic mixed precision (FP16) for 2-3x speedup:
+```python
+__C.USE_AMP = True
+```
+
+Configure in `RandWireNN_config.py`:
+```python
+__C.OPTIMIZER = "adamw"  # Choose your optimizer
+__C.SCHEDULER = "cosine_warmup"  # Choose your scheduler
+__C.USE_AMP = True  # Enable mixed precision
+__C.LEARNING_RATE = 0.001  # Adjust learning rate
+```
 
 
 ## Recent Updates (2025)
 
-This repository has been modernized with the following improvements:
+This repository has been extensively modernized with state-of-the-art improvements:
+
+### Phase 1: Core Architecture Improvements ✨
+
+- **Modern Optimizers:**
+  - AdamW with decoupled weight decay
+  - Lion optimizer support (state-of-the-art)
+  - SGD with Nesterov momentum
+  - Comprehensive optimizer factory pattern
+
+- **Advanced Learning Rate Schedulers:**
+  - OneCycleLR for super-convergence
+  - Cosine Annealing with Warm Restarts
+  - ReduceLROnPlateau
+  - Multiple scheduler options for different use cases
+
+- **Mixed Precision Training (AMP):**
+  - FP16 automatic mixed precision support
+  - 2-3x training speedup on modern GPUs
+  - Reduced memory usage
+
+- **Example Configurations:**
+  - Pre-configured setups for different use cases
+  - Easy-to-use configuration files in `/configs`
+
+### Foundation Updates
 
 - **Updated Dependencies:**
   - Python 3.10+ support (with type hints)
@@ -76,12 +147,13 @@ This repository has been modernized with the following improvements:
 - **Package Structure:**
   - Added `pyproject.toml` for modern Python packaging
   - Can now be installed with `pip install -e .`
-  - Support for development dependencies
+  - Support for development dependencies and optional extras
 
 - **Developer Experience:**
   - Better logging for debugging
   - Improved error messages
   - Type hints for IDE autocomplete
+  - Comprehensive documentation
 
 ### Reference
 

@@ -32,10 +32,29 @@ __C.BA_M =  5
 __C.WS_K = 4
 __C.WS_P = 0.75
 
-# Optimizer
+# Optimizer Configuration
+__C.OPTIMIZER = "sgd"  # Options: sgd, adam, adamw, lion, rmsprop
 __C.LEARNING_RATE = 0.1
 __C.MOMENTUM = 0.9
-__C.WEIGHT_DECAY = 5e-5 
+__C.WEIGHT_DECAY = 5e-5
+__C.NESTEROV = False  # Use Nesterov momentum for SGD
+__C.BETAS = (0.9, 0.999)  # Beta parameters for Adam/AdamW
+__C.ADAM_EPS = 1e-8  # Epsilon for Adam/AdamW
+
+# Learning Rate Scheduler Configuration
+__C.SCHEDULER = "cosine"  # Options: cosine, cosine_warmup, onecycle, step, multistep, exponential, reduce_on_plateau, none
+__C.ETA_MIN = 0  # Minimum learning rate for cosine schedules
+__C.T_0 = 10  # Initial restart period for cosine_warmup
+__C.T_MULT = 2  # Period multiplier for cosine_warmup
+__C.STEP_SIZE = 30  # Step size for step scheduler
+__C.MILESTONES = [30, 60, 90]  # Milestones for multistep scheduler
+__C.GAMMA = 0.1  # Learning rate decay factor
+__C.PCT_START = 0.3  # Percentage of cycle for OneCycleLR warmup
+__C.ANNEAL_STRATEGY = 'cos'  # Annealing strategy for OneCycleLR
+
+# Mixed Precision Training
+__C.USE_AMP = False  # Automatic Mixed Precision (FP16)
+__C.AMP_OPT_LEVEL = "O1"  # AMP optimization level (O0, O1, O2, O3) 
 
 # Debug parameters
 __C.PRINT_FREQ = 10

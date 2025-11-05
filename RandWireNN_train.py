@@ -4,7 +4,7 @@ import time
 import os, sys
 
 
-def train(train_loader, model, criterion, optimizer, epoch, cfg):
+def train(train_loader, model, criterion, optimizer, epoch, cfg, scaler=None, scheduler=None):
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
@@ -23,21 +23,45 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
 
         input = input.to(cfg.DEVICE)
         target = target.to(cfg.DEVICE)
-        
-        # compute output
-        optimizer.zero_grad()
-        output = model(input)
-        loss = criterion(output, target)
 
-        # measure accuracy and record loss
-        acc1, acc5 = accuracy(output, target, topk=(1, 5))
+        optimizer.zero_grad()
+
+        # Mixed precision training
+        use_amp = scaler is not None and cfg.USE_AMP
+        if use_amp:
+            with torch.cuda.amp.autocast():
+                output = model(input)
+                loss = criterion(output, target)
+
+            # Measure accuracy (outside autocast for stability)
+            with torch.no_grad():
+                acc1, acc5 = accuracy(output.float(), target, topk=(1, 5))
+
+            # Scaled backward pass
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+        else:
+            # Standard training
+            output = model(input)
+            loss = criterion(output, target)
+
+            # measure accuracy and record loss
+            acc1, acc5 = accuracy(output, target, topk=(1, 5))
+
+            # compute gradient and do optimizer step
+            loss.backward()
+            optimizer.step()
+
+        # Update metrics
         losses.update(loss.item(), input.size(0))
         top1.update(acc1[0], input.size(0))
         top5.update(acc5[0], input.size(0))
 
-        # compute gradient and do SGD step
-        loss.backward()
-        optimizer.step()
+        # Step OneCycleLR scheduler per batch
+        if scheduler is not None and cfg.SCHEDULER.lower() == 'onecycle':
+            scheduler.step()
+
         # measure elapsed time
         batch_time.update(time.time() - end)
         end = time.time()
@@ -48,9 +72,6 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
                 cfg.vis.line(X=torch.Tensor([epoch+(i/len(train_loader))]).unsqueeze(0).cpu(),
                              Y=torch.Tensor([loss]).unsqueeze(0).cpu(),
                              env='torch',win=cfg.loss_window,name='train_loss',update='append')
-                # for check lr_scheduler
-                # for param_group in optimizer.param_groups:
-                    # print(param_group['lr'])
 
         if i % cfg.SAVE_FREQ == 0:
             torch.save(model.state_dict(), './output/model/%s_%03d_%02d.cpt' % (cfg.DATASET_NAME, epoch, int(i)/1000))
