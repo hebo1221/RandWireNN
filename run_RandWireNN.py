@@ -4,6 +4,13 @@ from utils.network import Net
 from utils.config_helpers import merge_configs
 from utils.dataloader import train_data_loader, val_data_loader
 import time
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 def get_configuration():
     # load configs for base network and data set
@@ -24,7 +31,7 @@ if __name__ == '__main__':
     model = Net(cfg)
 
     if torch.cuda.device_count() > 1:
-        print("Let's use", torch.cuda.device_count(), "GPUs!")
+        logger.info(f"Using {torch.cuda.device_count()} GPUs")
         model = torch.nn.DataParallel(model)
     model.to(cfg.DEVICE)
     
@@ -46,6 +53,6 @@ if __name__ == '__main__':
                     cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([val_loss]).unsqueeze(0).cpu(),env='torch',win=cfg.loss_window,name='val_loss',update='append')      
                     cfg.vis.line(X=torch.Tensor([epoch+1]).unsqueeze(0).cpu(),Y=torch.Tensor([acc/100]).unsqueeze(0).cpu(),env='torch',win=cfg.loss_window,name='val_acc',update='append')      
         end = (time.time() - start)//60
-        print("train time: {}D {}H {}M".format(end//1440, (end%1440)//60, end%60))
+        logger.info(f"Training completed in: {end//1440}D {(end%1440)//60}H {end%60}M")
 
     validate(val_loader, model, criterion, cfg)

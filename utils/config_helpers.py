@@ -1,6 +1,10 @@
 from easydict import EasyDict
+from typing import List, Optional, Union, Dict
+import logging
 
-def merge_configs(config_list):
+logger = logging.getLogger(__name__)
+
+def merge_configs(config_list: Optional[List[Union[Dict, EasyDict]]]) -> Optional[EasyDict]:
     if config_list == None or len(config_list) == 0:
         return None
 
@@ -9,7 +13,7 @@ def merge_configs(config_list):
         base_config = EasyDict(base_config)
 
     if type(base_config) is not EasyDict:
-        print("The argument given to 'merge_configs' have to be of type dict or EasyDict.")
+        logger.error("The argument given to 'merge_configs' have to be of type dict or EasyDict.")
         return None
 
     for i in range(len(config_list) - 1):
@@ -20,7 +24,7 @@ def merge_configs(config_list):
     return base_config
 
 
-def _merge_add_a_into_b(a, b):
+def _merge_add_a_into_b(a: EasyDict, b: EasyDict) -> None:
     """
     Merge config dictionary a into config dictionary b,
     clobbering the options in b whenever they are also specified in a.
@@ -41,14 +45,14 @@ def _merge_add_a_into_b(a, b):
             if isinstance(b[k], np.ndarray):
                 v = np.array(v, dtype=b[k].dtype)
             else:
-                raise ValueError(('Type mismatch ({} vs. {}) for config key: {}').format(type(b[k]), type(v), k))
+                raise ValueError(f'Type mismatch ({type(b[k])} vs. {type(v)}) for config key: {k}')
 
         # recursively merge dicts
         if type(v) is EasyDict:
             try:
                 _merge_add_a_into_b(a[k], b[k])
             except:
-                print('Error under config key: {}'.format(k))
+                logger.error(f'Error under config key: {k}')
                 raise
         else:
             b[k] = v

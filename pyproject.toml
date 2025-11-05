@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "randwirenn"
+version = "1.0.0"
+description = "Randomly Wired Neural Networks implementation in PyTorch"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "RandWireNN Contributors"}
+]
+keywords = ["deep-learning", "neural-networks", "pytorch", "random-graphs"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "easydict>=1.10",
+    "networkx>=3.0",
+    "matplotlib>=3.7.0",
+    "pyyaml>=6.0",
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.5.0",
+]
+viz = [
+    "visdom>=0.2.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/hebo1221/RandWireNN"
+Repository = "https://github.com/hebo1221/RandWireNN"
+Issues = "https://github.com/hebo1221/RandWireNN/issues"
+
+[tool.setuptools]
+packages = ["utils", "utils.configs"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false

@@ -1,10 +1,13 @@
 import networkx as nx
 import collections
 import matplotlib.pyplot as plt
+import yaml
+import json
+from typing import List, Tuple, Any
 
 Node = collections.namedtuple('Node', ['id', 'inputs', 'type'])
 
-def get_graph_info(graph):
+def get_graph_info(graph: nx.Graph) -> Tuple[List[Node], List[int], List[int]]:
   input_nodes = []
   output_nodes = []
   Nodes = []
@@ -21,19 +24,25 @@ def get_graph_info(graph):
     Nodes.append(Node(node, [n for n in tmp if n < node], type))
   return Nodes, input_nodes, output_nodes
 
-def build_graph(Nodes, cfg ):
+def build_graph(Nodes: int, cfg: Any) -> nx.Graph:
   if cfg.GRAPH_MODEL == 'ER':
-    return nx.random_graphs.erdos_renyi_graph(Nodes, cfg.ER_P, cfg.RND_SEED)
+    return nx.erdos_renyi_graph(Nodes, cfg.ER_P, seed=cfg.RND_SEED)
   elif cfg.GRAPH_MODEL == 'BA':
-    return nx.random_graphs.barabasi_albert_graph(Nodes, cfg.BA_M,cfg.RND_SEED)
+    return nx.barabasi_albert_graph(Nodes, cfg.BA_M, seed=cfg.RND_SEED)
   elif cfg.GRAPH_MODEL == 'WS':
-    return nx.random_graphs.connected_watts_strogatz_graph(Nodes, cfg.WS_K, cfg.WS_P, tries=200, seed=cfg.RND_SEED)
+    return nx.connected_watts_strogatz_graph(Nodes, cfg.WS_K, cfg.WS_P, tries=200, seed=cfg.RND_SEED)
 
-def save_graph(graph, path):
-  nx.write_yaml(graph, path)
+def save_graph(graph: nx.Graph, path: str) -> None:
+  """Save graph to YAML format using node-link data structure."""
+  graph_data = nx.node_link_data(graph)
+  with open(path, 'w') as f:
+    yaml.dump(graph_data, f)
 
-def load_graph(path):
-  return nx.read_yaml(path)
+def load_graph(path: str) -> nx.Graph:
+  """Load graph from YAML format using node-link data structure."""
+  with open(path, 'r') as f:
+    graph_data = yaml.safe_load(f)
+  return nx.node_link_graph(graph_data)
 
 
 if __name__ == '__main__':

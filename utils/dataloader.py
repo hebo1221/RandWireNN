@@ -6,10 +6,13 @@ import shutil
 import torch
 from torchvision.datasets.folder import ImageFolder
 from torchvision.datasets.utils import check_integrity, download_url
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-def train_data_loader(cfg):    
-    print("train_loader")
+def train_data_loader(cfg):
+    logger.info("Initializing train data loader")
     tf_mnist = transforms.Compose(
         [transforms.Resize(cfg.NN.IMG_SIZE),
          transforms.RandomCrop(cfg.NN.IMG_SIZE, padding=4),
@@ -54,8 +57,8 @@ def train_data_loader(cfg):
             datasets.ImageFolder(cfg.DATASET_DIR, transform=tf), cfg.BATCH_SIZE, 
             shuffle=True, pin_memory=True, drop_last=True)
 
-def val_data_loader(cfg):    
-    print("val_loader")
+def val_data_loader(cfg):
+    logger.info("Initializing validation data loader")
     tf_mnist = transforms.Compose(
         [transforms.Resize(cfg.NN.IMG_SIZE),
          transforms.ToTensor(),
@@ -154,7 +157,7 @@ class ImageNet(ImageFolder):
 
     def download(self):
         if 1:
-            print("if not check_integrity(self.meta_file):")
+            logger.info("Downloading and extracting meta file")
             tmpdir = os.path.join(self.root, 'tmp')
 
             archive_dict = ARCHIVE_DICT['devkit']
@@ -168,7 +171,7 @@ class ImageNet(ImageFolder):
             shutil.rmtree(tmpdir)
 
         if not os.path.isdir(self.split_folder):
-            print("if not os.path.isdir(self.split_folder):")
+            logger.info(f"Downloading and extracting {self.split} dataset")
             archive_dict = ARCHIVE_DICT[self.split]
             download_and_extract_tar(archive_dict['url'], self.root,
                                      extract_root=self.split_folder,
@@ -180,10 +183,10 @@ class ImageNet(ImageFolder):
                 val_wnids = self._load_meta_file()[1]
                 prepare_val_folder(self.split_folder, val_wnids)
         else:
-            msg = ("You set download=True, but a folder '{}' already exist in "
+            msg = (f"You set download=True, but a folder '{self.split}' already exist in "
                    "the root directory. If you want to re-download or re-extract the "
                    "archive, delete the folder.")
-            print(msg.format(self.split))
+            logger.warning(msg)
 
     @property
     def meta_file(self):
@@ -201,8 +204,8 @@ class ImageNet(ImageFolder):
 
     def _verify_split(self, split):
         if split not in self.valid_splits:
-            msg = "Unknown split {} .".format(split)
-            msg += "Valid splits are {{}}.".format(", ".join(self.valid_splits))
+            msg = f"Unknown split {split} ."
+            msg += f"Valid splits are {', '.join(self.valid_splits)}."
             raise ValueError(msg)
         return split
 
@@ -215,7 +218,7 @@ class ImageNet(ImageFolder):
         return os.path.join(self.root, self.split)
 
     def extra_repr(self):
-        return "Split: {split}".format(**self.__dict__)
+        return f"Split: {self.split}"
 
 
 def extract_tar(src, dest=None, gzip=None, delete=False):

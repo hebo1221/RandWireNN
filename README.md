@@ -26,13 +26,21 @@ In regular regime, C=109, WS(4,0.75)
 ## Running the example
 
 ### Setup
-Please prepare:
-[![Python Version](https://img.shields.io/badge/python-3.6,3.7-green.svg)](https://www.python.org/downloads/release/python-360/) [![Pytorch Version](https://img.shields.io/badge/pytorch-1.0,1.1-orange.svg)](https://pytorch.org/get-started/locally/)
+Requirements:
+[![Python Version](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/) [![PyTorch Version](https://img.shields.io/badge/pytorch-2.0+-orange.svg)](https://pytorch.org/get-started/locally/)
 
-Clone the repository and install the following additional packages:
+**Recommended:** Python 3.10+ and PyTorch 2.0+
 
-```
+Clone the repository and install:
+
+```bash
 git clone https://github.com/hebo1221/RandWireNN.git
+cd RandWireNN
+
+# Install as a package (recommended)
+pip install -e .
+
+# Or install requirements only
 pip install -r requirements.txt
 ```
 
@@ -47,6 +55,33 @@ python run_RandWireNN.py
 - If you want to see a train-loss graph, see RandWireNN_config.py, __C.VISDOM
 - You can change the hyperparameters and dataset settings from *_config.py files. Look it up.
 
+
+## Recent Updates (2025)
+
+This repository has been modernized with the following improvements:
+
+- **Updated Dependencies:**
+  - Python 3.10+ support (with type hints)
+  - PyTorch 2.0+ compatibility
+  - NetworkX 3.0+ (with updated graph APIs)
+  - All major dependencies updated to latest stable versions
+
+- **Code Quality Improvements:**
+  - Migrated from `.format()` to f-strings
+  - Added type hints for better IDE support
+  - Replaced print statements with proper logging
+  - Fixed critical indentation bug in Node_OP.forward()
+  - Modern `.gitignore` with comprehensive patterns
+
+- **Package Structure:**
+  - Added `pyproject.toml` for modern Python packaging
+  - Can now be installed with `pip install -e .`
+  - Support for development dependencies
+
+- **Developer Experience:**
+  - Better logging for debugging
+  - Improved error messages
+  - Type hints for IDE autocomplete
 
 ### Reference
 

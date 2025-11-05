@@ -11,7 +11,7 @@ def train(train_loader, model, criterion, optimizer, epoch, cfg):
     top1 = AverageMeter('Acc@1', ':6.2f')
     top5 = AverageMeter('Acc@5', ':6.2f')
     progress = ProgressMeter(len(train_loader), batch_time, data_time, losses, top1,
-                             top5, prefix="Epoch: [{}]".format(epoch))
+                             top5, prefix=f"Epoch: [{epoch}]")
 
     # switch to train mode
     model.train()
@@ -91,8 +91,7 @@ def validate(val_loader, model, criterion, cfg):
                 progress.print(i)
 
         # TODO: this should also be done with the ProgressMeter
-        print(' * Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f}'
-              .format(top1=top1, top5=top5))
+        print(f' * Acc@1 {top1.avg:.3f} Acc@5 {top5.avg:.3f}')
 
     return losses.avg, top1.avg
 

@@ -47,11 +47,11 @@ class Node_OP(nn.Module):
     def forward(self, *input):
         if self.input_nums > 1:
             out = self.sigmoid(self.mean_weight[0]) * input[0]
-        for i in range(1, self.input_nums):
-            out = out + self.sigmoid(self.mean_weight[i]) * input[i]
+            for i in range(1, self.input_nums):
+                out = out + self.sigmoid(self.mean_weight[i]) * input[i]
         else:
             out = input[0]
-            out = self.conv(out)
+        out = self.conv(out)
         return out
 
 class StageBlock(nn.Module):
