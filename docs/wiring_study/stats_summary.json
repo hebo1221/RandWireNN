@@ -1,0 +1,83 @@
+{
+  "H1": {
+    "all_runs_pearson": {
+      "r": -0.542,
+      "p": 7.75e-06
+    },
+    "all_runs_spearman": {
+      "rho": -0.424,
+      "p": 0.000725
+    },
+    "ws2_only_pearson": {
+      "r": -0.273,
+      "p": 0.145,
+      "note": "edge count fixed at 12 - confound-free"
+    },
+    "ws2_only_spearman": {
+      "rho": -0.459,
+      "p": 0.0108
+    },
+    "partial_r_given_edges_inputnodes": {
+      "r": -0.455,
+      "p": 0.000259
+    }
+  },
+  "H2": {
+    "acc_by_k": {
+      "0": 70.92,
+      "1": 74.53,
+      "2": 76.56,
+      "4": 77.27,
+      "8": 79.44
+    },
+    "marginal_gains": {
+      "k=0->k=1": 3.61,
+      "k=1->k=2": 2.03,
+      "k=2->k=4": 0.71,
+      "k=4->k=8": 2.17
+    }
+  },
+  "H3": {
+    "imbalance_vs_acc": {
+      "r": -0.594,
+      "p": 5.68e-07
+    },
+    "L_vs_imbalance": {
+      "r": 0.319,
+      "p": 0.0131
+    },
+    "mediation_L_to_imb_to_acc": {
+      "total_c": -0.542,
+      "direct_c_prime": -0.393,
+      "indirect_ab": -0.149,
+      "ab_ci95": [
+        -0.298,
+        -0.042
+      ],
+      "mediated_fraction": 0.276
+    }
+  },
+  "edge_weights": {
+    "n_edges": 829,
+    "weight_vs_betweenness": {
+      "r": 0.203,
+      "p": 3.39e-09,
+      "rho": 0.35
+    },
+    "weight_vs_betweenness_partial_ninputs": {
+      "r": 0.2,
+      "p": 6.18e-09
+    },
+    "weight_vs_skipdist_spearman": {
+      "rho": -0.354,
+      "p": 6.57e-26
+    },
+    "path_k_chain_vs_skip": {
+      "chain_mean": 0.7328,
+      "skip_mean": 0.7282,
+      "t": 4.02,
+      "p": 7.71e-05,
+      "mannwhitney_p": 0.013
+    }
+  }
+}
