@@ -1,0 +1,466 @@
+[
+  {
+    "name": "ER_p0.15",
+    "acc": 82.05,
+    "neg_L": -2.5681818181818183,
+    "grad_flatness": -0.006844777608631807,
+    "n_edges": 15.5,
+    "max_degree": 5.0
+  },
+  {
+    "name": "ER_p0.2",
+    "acc": 81.75,
+    "neg_L": -2.128787878787879,
+    "grad_flatness": -0.05180385540787836,
+    "n_edges": 17.0,
+    "max_degree": 5.5
+  },
+  {
+    "name": "ER_p0.25",
+    "acc": 83.05,
+    "neg_L": -2.121212121212121,
+    "grad_flatness": -0.06551470055024275,
+    "n_edges": 19.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "ER_p0.3",
+    "acc": 82.15,
+    "neg_L": -1.9772727272727275,
+    "grad_flatness": -0.07153915950669389,
+    "n_edges": 20.5,
+    "max_degree": 5.0
+  },
+  {
+    "name": "ER_p0.36",
+    "acc": 81.8,
+    "neg_L": -2.0303030303030303,
+    "grad_flatness": -0.05922372139822967,
+    "n_edges": 22.0,
+    "max_degree": 6.0
+  },
+  {
+    "name": "ER_p0.45",
+    "acc": 81.35,
+    "neg_L": -1.6818181818181819,
+    "grad_flatness": -0.04881710419300309,
+    "n_edges": 27.0,
+    "max_degree": 7.5
+  },
+  {
+    "name": "ER_p0.55",
+    "acc": 82.0,
+    "neg_L": -1.378787878787879,
+    "grad_flatness": -0.047715397148740575,
+    "n_edges": 41.0,
+    "max_degree": 9.0
+  },
+  {
+    "name": "ER_p0.65",
+    "acc": 81.65,
+    "neg_L": -1.3409090909090908,
+    "grad_flatness": -0.04597243889395523,
+    "n_edges": 43.5,
+    "max_degree": 9.5
+  },
+  {
+    "name": "WS2_p0.0",
+    "acc": 78.1,
+    "neg_L": -3.272727272727273,
+    "grad_flatness": -0.06379772327632668,
+    "n_edges": 12.0,
+    "max_degree": 2.0
+  },
+  {
+    "name": "WS2_p0.2",
+    "acc": 82.8,
+    "neg_L": -3.454545454545454,
+    "grad_flatness": -0.02506800315721519,
+    "n_edges": 12.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "WS2_p0.4",
+    "acc": 82.35,
+    "neg_L": -2.909090909090909,
+    "grad_flatness": -0.041972760081356794,
+    "n_edges": 12.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "WS2_p0.6",
+    "acc": 81.45,
+    "neg_L": -3.1893939393939394,
+    "grad_flatness": -0.0034865983455795745,
+    "n_edges": 12.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "WS2_p0.8",
+    "acc": 81.8,
+    "neg_L": -2.9242424242424243,
+    "grad_flatness": -0.018452541457766473,
+    "n_edges": 12.0,
+    "max_degree": 4.0
+  },
+  {
+    "name": "WS2_p1.0",
+    "acc": 81.95,
+    "neg_L": -3.462121212121212,
+    "grad_flatness": -0.044957842686274174,
+    "n_edges": 12.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "WS4_p0.0",
+    "acc": 80.4,
+    "neg_L": -1.9090909090909092,
+    "grad_flatness": -0.04020143423376407,
+    "n_edges": 24.0,
+    "max_degree": 4.0
+  },
+  {
+    "name": "WS4_p0.2",
+    "acc": 81.0,
+    "neg_L": -1.7803030303030303,
+    "grad_flatness": -0.03429712175766937,
+    "n_edges": 24.0,
+    "max_degree": 5.5
+  },
+  {
+    "name": "WS4_p0.4",
+    "acc": 81.85,
+    "neg_L": -1.787878787878788,
+    "grad_flatness": -0.05206089149119182,
+    "n_edges": 24.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "WS4_p0.6",
+    "acc": 82.25,
+    "neg_L": -1.7196969696969697,
+    "grad_flatness": -0.01873134226767874,
+    "n_edges": 24.0,
+    "max_degree": 7.0
+  },
+  {
+    "name": "WS4_p0.8",
+    "acc": 83.0,
+    "neg_L": -1.75,
+    "grad_flatness": -0.025640153038354478,
+    "n_edges": 24.0,
+    "max_degree": 6.0
+  },
+  {
+    "name": "WS4_p1.0",
+    "acc": 83.1,
+    "neg_L": -1.75,
+    "grad_flatness": -0.01675566887138396,
+    "n_edges": 24.0,
+    "max_degree": 5.5
+  },
+  {
+    "name": "WS6_p0.25",
+    "acc": 80.9,
+    "neg_L": -1.4545454545454546,
+    "grad_flatness": -0.03174491849536721,
+    "n_edges": 36.0,
+    "max_degree": 7.5
+  },
+  {
+    "name": "WS6_p0.5",
+    "acc": 82.5,
+    "neg_L": -1.4621212121212122,
+    "grad_flatness": -0.04185796059033145,
+    "n_edges": 36.0,
+    "max_degree": 8.0
+  },
+  {
+    "name": "WS6_p0.75",
+    "acc": 81.0,
+    "neg_L": -1.4545454545454546,
+    "grad_flatness": -0.052811413735800686,
+    "n_edges": 36.0,
+    "max_degree": 8.0
+  },
+  {
+    "name": "BA_m1",
+    "acc": 79.95,
+    "neg_L": -2.5606060606060606,
+    "grad_flatness": -0.16081645966354147,
+    "n_edges": 11.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "BA_m2",
+    "acc": 81.0,
+    "neg_L": -1.7954545454545454,
+    "grad_flatness": -0.1165396026132147,
+    "n_edges": 20.0,
+    "max_degree": 7.0
+  },
+  {
+    "name": "BA_m3",
+    "acc": 82.3,
+    "neg_L": -1.6590909090909092,
+    "grad_flatness": -0.052268630987988444,
+    "n_edges": 27.0,
+    "max_degree": 8.0
+  },
+  {
+    "name": "BA_m4",
+    "acc": 81.4,
+    "neg_L": -1.5378787878787878,
+    "grad_flatness": -0.02622367112824598,
+    "n_edges": 32.0,
+    "max_degree": 9.5
+  },
+  {
+    "name": "RR_d3",
+    "acc": 82.15,
+    "neg_L": -2.0681818181818183,
+    "grad_flatness": -0.04201346786767877,
+    "n_edges": 18.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "RR_d4",
+    "acc": 82.9,
+    "neg_L": -1.7272727272727273,
+    "grad_flatness": -0.062447968433071765,
+    "n_edges": 24.0,
+    "max_degree": 4.0
+  },
+  {
+    "name": "RR_d5",
+    "acc": 82.45,
+    "neg_L": -1.5454545454545454,
+    "grad_flatness": -0.04212691519997039,
+    "n_edges": 30.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "RR_d6",
+    "acc": 81.8,
+    "neg_L": -1.4545454545454546,
+    "grad_flatness": -0.030096358964852358,
+    "n_edges": 36.0,
+    "max_degree": 6.0
+  },
+  {
+    "name": "NWS_p0.1",
+    "acc": 81.1,
+    "neg_L": -1.696969696969697,
+    "grad_flatness": -0.033727104967504105,
+    "n_edges": 27.0,
+    "max_degree": 6.0
+  },
+  {
+    "name": "NWS_p0.3",
+    "acc": 81.4,
+    "neg_L": -1.553030303030303,
+    "grad_flatness": -0.025286266906688188,
+    "n_edges": 32.0,
+    "max_degree": 8.0
+  },
+  {
+    "name": "NWS_p0.5",
+    "acc": 80.4,
+    "neg_L": -1.4924242424242424,
+    "grad_flatness": -0.033543678558096014,
+    "n_edges": 35.0,
+    "max_degree": 7.5
+  },
+  {
+    "name": "PC_m2_p0.1",
+    "acc": 82.95,
+    "neg_L": -1.9090909090909092,
+    "grad_flatness": -0.07892015245580705,
+    "n_edges": 20.0,
+    "max_degree": 6.5
+  },
+  {
+    "name": "PC_m2_p0.5",
+    "acc": 80.8,
+    "neg_L": -1.9015151515151516,
+    "grad_flatness": -0.08021197820715154,
+    "n_edges": 20.0,
+    "max_degree": 7.0
+  },
+  {
+    "name": "PC_m3_p0.1",
+    "acc": 82.1,
+    "neg_L": -1.6363636363636362,
+    "grad_flatness": -0.05978957106683859,
+    "n_edges": 27.0,
+    "max_degree": 8.5
+  },
+  {
+    "name": "PC_m3_p0.5",
+    "acc": 81.95,
+    "neg_L": -1.606060606060606,
+    "grad_flatness": -0.0747003831638632,
+    "n_edges": 27.0,
+    "max_degree": 10.0
+  },
+  {
+    "name": "PATH_k0",
+    "acc": 71.95,
+    "neg_L": -4.333333333333333,
+    "grad_flatness": -0.0689220557826877,
+    "n_edges": 11.0,
+    "max_degree": 2.0
+  },
+  {
+    "name": "PATH_k1",
+    "acc": 74.45,
+    "neg_L": -3.393939393939394,
+    "grad_flatness": -0.059426069868552096,
+    "n_edges": 12.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "PATH_k2",
+    "acc": 76.4,
+    "neg_L": -2.9318181818181817,
+    "grad_flatness": -0.062421612340524756,
+    "n_edges": 13.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "PATH_k3",
+    "acc": 78.25,
+    "neg_L": -2.6515151515151514,
+    "grad_flatness": -0.0427911876957003,
+    "n_edges": 14.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "PATH_k4",
+    "acc": 79.55,
+    "neg_L": -2.416666666666667,
+    "grad_flatness": -0.053096424658615325,
+    "n_edges": 15.0,
+    "max_degree": 4.0
+  },
+  {
+    "name": "PATH_k6",
+    "acc": 78.8,
+    "neg_L": -2.106060606060606,
+    "grad_flatness": -0.04108118912561193,
+    "n_edges": 17.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "PATH_k8",
+    "acc": 79.85,
+    "neg_L": -2.25,
+    "grad_flatness": -0.02820743746534144,
+    "n_edges": 19.0,
+    "max_degree": 5.5
+  },
+  {
+    "name": "PATH_k10",
+    "acc": 78.65,
+    "neg_L": -1.8863636363636362,
+    "grad_flatness": -0.045180181686179856,
+    "n_edges": 21.0,
+    "max_degree": 6.5
+  },
+  {
+    "name": "PATH_k12",
+    "acc": 79.1,
+    "neg_L": -1.7954545454545454,
+    "grad_flatness": -0.05315914749582355,
+    "n_edges": 23.0,
+    "max_degree": 6.0
+  },
+  {
+    "name": "PATH_k16",
+    "acc": 80.75,
+    "neg_L": -1.628787878787879,
+    "grad_flatness": -0.04739788844036816,
+    "n_edges": 27.0,
+    "max_degree": 7.0
+  },
+  {
+    "name": "CYCLE",
+    "acc": 78.1,
+    "neg_L": -3.272727272727273,
+    "grad_flatness": -0.06379772327632668,
+    "n_edges": 12.0,
+    "max_degree": 2.0
+  },
+  {
+    "name": "COMPLETE",
+    "acc": 81.0,
+    "neg_L": -1.0,
+    "grad_flatness": -0.039610620998301815,
+    "n_edges": 66.0,
+    "max_degree": 11.0
+  },
+  {
+    "name": "TREE_0",
+    "acc": 81.15,
+    "neg_L": -3.128787878787879,
+    "grad_flatness": -0.030823950304995518,
+    "n_edges": 11.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "TREE_1",
+    "acc": 81.95,
+    "neg_L": -3.871212121212121,
+    "grad_flatness": -0.03947127570660026,
+    "n_edges": 11.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "TREE_2",
+    "acc": 80.9,
+    "neg_L": -3.143939393939394,
+    "grad_flatness": -0.09396007251426718,
+    "n_edges": 11.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "TREE_3",
+    "acc": 81.8,
+    "neg_L": -3.1818181818181817,
+    "grad_flatness": -0.01780572150471204,
+    "n_edges": 11.0,
+    "max_degree": 3.5
+  },
+  {
+    "name": "LADDER",
+    "acc": 78.5,
+    "neg_L": -2.6666666666666665,
+    "grad_flatness": -0.04596658627001682,
+    "n_edges": 16.0,
+    "max_degree": 3.0
+  },
+  {
+    "name": "WHEEL",
+    "acc": 81.9,
+    "neg_L": -1.6363636363636365,
+    "grad_flatness": -0.009157788241839264,
+    "n_edges": 20.0,
+    "max_degree": 10.0
+  },
+  {
+    "name": "BARBELL",
+    "acc": 76.45,
+    "neg_L": -2.757575757575758,
+    "grad_flatness": -0.05166042287718968,
+    "n_edges": 23.0,
+    "max_degree": 5.0
+  },
+  {
+    "name": "STAR+PATH",
+    "acc": 83.0,
+    "neg_L": -1.6818181818181819,
+    "grad_flatness": -0.034139562865489914,
+    "n_edges": 21.0,
+    "max_degree": 11.0
+  }
+]

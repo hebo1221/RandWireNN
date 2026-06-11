@@ -1,0 +1,29 @@
+{
+  "n_candidates": 58,
+  "grad_flatness": {
+    "spearman_rho": 0.254,
+    "spearman_p": 0.0545,
+    "top1_pick": "WS2_p0.6",
+    "regret_at_k": {
+      "1": 1.65,
+      "3": 1.05,
+      "5": 0.0,
+      "10": 0.0
+    }
+  },
+  "neg_L": {
+    "spearman_rho": 0.281,
+    "spearman_p": 0.0327,
+    "top1_pick": "COMPLETE",
+    "regret_at_k": {
+      "1": 2.1,
+      "3": 1.1,
+      "5": 1.1,
+      "10": 0.6
+    }
+  },
+  "hub_underrating": {
+    "rho": 0.139,
+    "p": 0.3
+  }
+}

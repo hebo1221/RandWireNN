@@ -24,6 +24,13 @@ Modern PyTorch implementation of Randomly Wired Neural Networks with **state-of-
 > damage 2.4× better); a zero-training gradient proxy picks the best of 24 wirings
 > with zero regret; and the chain-vs-random gap explodes exponentially with depth
 > (+3 → +11 → +58 points at N = 6 → 12 → 24).
+>
+> 🧬 **New — [Round 3: Rehabilitation & Proxy Limits](ROUND3_REHAB_AND_PROXY.md)**:
+> the skip advantage decomposes into +3.4 pt the skips *teach* the chain
+> (amputated networks fine-tune above any from-scratch chain, 5/5 seeds, p = 0.031)
+> and +5.1 pt only the skips can compute; at 58 candidates, zero-cost proxies turn
+> out to be anomaly detectors, not rankers — top-5 screening still finds the true
+> best with 91% less training.
 
 ---
 
