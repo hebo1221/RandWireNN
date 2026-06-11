@@ -9,6 +9,10 @@ Modern PyTorch implementation of Randomly Wired Neural Networks with **state-of-
 
 **Original Paper:** [Exploring Randomly Wired Neural Networks for Image Recognition (ICCV 2019)](https://arxiv.org/pdf/1904.01569v2)
 
+> 🧪 **New — [The Wiring Lab](WIRING_LAB.md)**: a 45-run mini-replication of the paper's
+> core claim, runnable on CPU in ~15 minutes. Spoiler: among random graphs the wiring
+> doesn't matter, but average path length predicts accuracy at r = −0.84.
+
 ---
 
 ## 📋 Table of Contents
