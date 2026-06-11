@@ -1,0 +1,26 @@
+{
+  "H4_weight_vs_damage": {
+    "r": 0.11,
+    "p": 0.0395,
+    "rho": 0.16,
+    "rho_p": 0.00263
+  },
+  "H4_betweenness_vs_damage": {
+    "rho": 0.376,
+    "p": 3.23e-13
+  },
+  "H4b_means": {
+    "baseline": 79.43,
+    "intact_recalib": 78.25,
+    "no_chains_recalib": 36.83,
+    "no_chains_naive": 18.32,
+    "no_skips_recalib": 9.93,
+    "no_skips_naive": 10.38
+  },
+  "H6_gap_by_N": {
+    "6": 3.14,
+    "12": 10.74,
+    "24": 57.69
+  },
+  "H6_path_decay_per_level_decades": 0.067
+}

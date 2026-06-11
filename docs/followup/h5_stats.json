@@ -1,0 +1,18 @@
+{
+  "grad_flatness": {
+    "spearman_rho": 0.441,
+    "spearman_p": 0.0312,
+    "pearson_r": 0.259,
+    "top1_regret": 0.0,
+    "best_of_top5_regret": 0.0,
+    "top1_pick": "WS2_p0.5"
+  },
+  "neg_L": {
+    "spearman_rho": 0.331,
+    "spearman_p": 0.114,
+    "pearson_r": 0.683,
+    "top1_regret": 1.7,
+    "best_of_top5_regret": 0.98,
+    "top1_pick": "COMPLETE"
+  }
+}

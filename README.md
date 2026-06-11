@@ -17,6 +17,13 @@ Modern PyTorch implementation of Randomly Wired Neural Networks with **state-of-
 > 60 runs, pre-registered hypotheses, mediation analysis. Path length causes the
 > effect; init-time gradient imbalance mediates ~28% of it; and trained networks
 > *downweight* the very skip edges that make them work.
+>
+> ⚖️ **New — [Three Hypotheses, Three Verdicts](FOLLOWUP_HYPOTHESES.md)**: the
+> scaffolding hypothesis is **falsified** by ablation (networks compute *through*
+> their skips; weights are uninformative about importance — betweenness predicts
+> damage 2.4× better); a zero-training gradient proxy picks the best of 24 wirings
+> with zero regret; and the chain-vs-random gap explodes exponentially with depth
+> (+3 → +11 → +58 points at N = 6 → 12 → 24).
 
 ---
 

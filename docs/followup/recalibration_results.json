@@ -1,0 +1,52 @@
+[
+  {
+    "seed": 3,
+    "baseline": 80.55,
+    "no_skips_naive": 10.5,
+    "no_skips_recalib": 9.45,
+    "no_chains_naive": 35.3,
+    "no_chains_recalib": 53.8,
+    "intact_recalib": 79.65,
+    "time_s": 27.1
+  },
+  {
+    "seed": 7,
+    "baseline": 81.0,
+    "no_skips_naive": 9.9,
+    "no_skips_recalib": 8.65,
+    "no_chains_naive": 14.0,
+    "no_chains_recalib": 32.6,
+    "intact_recalib": 80.1,
+    "time_s": 26.4
+  },
+  {
+    "seed": 11,
+    "baseline": 78.95,
+    "no_skips_naive": 10.55,
+    "no_skips_recalib": 12.1,
+    "no_chains_naive": 10.95,
+    "no_chains_recalib": 38.2,
+    "intact_recalib": 79.15,
+    "time_s": 26.4
+  },
+  {
+    "seed": 13,
+    "baseline": 76.8,
+    "no_skips_naive": 10.0,
+    "no_skips_recalib": 9.85,
+    "no_chains_naive": 11.3,
+    "no_chains_recalib": 27.05,
+    "intact_recalib": 73.8,
+    "time_s": 26.8
+  },
+  {
+    "seed": 17,
+    "baseline": 79.85,
+    "no_skips_naive": 10.95,
+    "no_skips_recalib": 9.6,
+    "no_chains_naive": 20.05,
+    "no_chains_recalib": 32.5,
+    "intact_recalib": 78.55,
+    "time_s": 25.2
+  }
+]
